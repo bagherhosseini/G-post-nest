@@ -1,0 +1,27 @@
+{
+  "name": "g-post",
+  "version": "1.0.0",
+  "description": "Use the following prefixes in your commit messages to provide a clear and consistent format:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bagherhosseini/G-Post.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bagherhosseini/G-Post/issues"
+  },
+  "homepage": "https://github.com/bagherhosseini/G-Post#readme",
+  "devDependencies": {
+    "husky": "^7.0.4"
+  },
+  "dependencies": {
+    "simple-peer": "^9.11.1",
+    "ws": "^8.14.2"
+  }
+}

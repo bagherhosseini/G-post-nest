@@ -1,0 +1,30 @@
+.login
+{
+    height:300px;
+    display:flex;
+    background-color:rgb(235, 231, 231);
+    flex-direction:row;
+
+    &-recover
+    {
+        flex:1;
+        background-color:lavender;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &-google
+    {
+        flex:1;
+        background-color:lavenderblush;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+
+        & button:hover
+        {
+            cursor:pointer;
+        }
+    }
+}

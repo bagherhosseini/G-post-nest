@@ -1,0 +1,19 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+error=0
+
+# Run eslint for each file individually, excluding JSON files
+# for file in $(git diff --name-only --cached); do
+#   if [ "${file##*.}" != "json" ]; then
+#     if ! npx eslint --config server/.eslintrc.json "$file"; then
+#       error=1
+#     fi
+#   fi
+# done
+
+# Throw an error if any file failed linting
+if [ "$error" -ne 0 ]; then
+  echo "Linting failed. Please fix the issues before committing."
+  exit 1
+fi

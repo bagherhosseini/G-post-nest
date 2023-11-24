@@ -1,0 +1,47 @@
+.recommendeds{
+    width: 100%;
+
+    & h1{
+        font-size: 1.5rem;
+    }
+
+    .container{
+        display: flex;
+
+        align-items: center;
+        width: 100%;
+        gap: 25px;
+
+        & .recommended{
+            background-color: #242836;
+            width: 25%;
+            height: 350px;
+            border-radius: 20px;
+            cursor: pointer;
+
+            & .img{
+                height: 50%;
+                background-repeat: no-repeat !important;
+                background-position: center !important;
+                background-size: cover !important;
+                border-radius: 20px 20px 0 0;
+                cursor: pointer;
+            }
+
+            & .info{
+                width: 100%;
+                padding: 10px;
+
+                & .name{
+                    color: #6E6F7F;
+                }
+
+                & .description{
+                    color: white;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}

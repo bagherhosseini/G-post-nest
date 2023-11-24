@@ -1,0 +1,373 @@
+.chat{
+    color: white;
+    background: hsl(249, 19%, 14%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+
+    p{
+        margin: 0;
+    }
+
+    & .content{
+        padding: 20px 30px;
+        height: 100vh;
+        width: 85%;
+        max-width: 85%;
+        display: flex;
+        flex-direction: row;
+
+        & .filePreview{
+            max-width: 200px;
+            max-height: 200px;
+        }
+
+        & h1{
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        & .contactsContainer{
+            width: 300px;
+            height: 100%;
+            padding: 20px 10px;
+            display: flex;
+            gap: 30px;
+            flex-direction: column;
+
+            & .contacts{
+                display: flex;
+                gap: 10px;
+                flex-direction: column;
+                
+                & .contact{
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    gap: 20px;
+                    align-items: center;
+                    border-radius: 4px;
+                    padding: 10px 10px;
+                    text-decoration: none;
+                    color: hsla(0, 0%, 100%, 0.50);
+
+                    &:hover{
+                        color: white;
+                        background: hsla(249, 17%, 8%, 0.30);
+                    }
+
+                    & img{
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                    }
+                }
+
+                & .contact.active{
+                    background: hsla(249, 17%, 8%, 0.50);
+                    color: white;
+                }
+            }
+        }
+    
+        & .messageContainer{
+            width: 100%;
+            background-color: #242836;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            border-radius: 10px;
+            position: relative;
+            height: 100%;
+
+            & header{
+                position: absolute;
+                width: 100%;
+                top: 0;
+                border-bottom: 0.1px solid rgba(0, 0, 0, 0.30);
+                padding: 10px 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                & .call{
+                    display: flex;
+                    gap: 20px;
+
+                    button{
+                        background:none;
+                        border: none;
+                        color: white;
+                        cursor: pointer;
+                    }
+                }
+            }
+    
+            & .messages{
+                width: 100%;
+                max-height: calc(100% - 105px);
+                overflow: auto;
+                display: flex;
+                gap: 20px;
+                flex-direction: column;
+                padding: 10px 20px;
+
+                & .messageInfo{
+                    display: flex;
+                    gap: 15px;
+                    width: 100%;
+                   
+                    & .NameMsg{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 5px;
+                        font-size: 0.8rem;
+
+                        & .timeName{
+                            display: flex;
+                            flex-direction: row;
+                            gap: 5px;
+                            align-items: center;
+
+                            & .time{
+                                color: hsl(236, 7%, 66%);
+                                font-size: 0.6rem;
+                            }
+
+                            & .name{
+                                font-weight: 600;
+                            }
+                        }
+
+                        & .message{
+                            overflow-wrap: anywhere;
+                        }
+
+                        & .fileImg{
+                            max-width: 400px;
+                            max-height: 400px;
+                            border-radius: 10px;
+                        }
+                    }
+
+                    & .profilePic{
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                    }
+                }
+            }
+
+            & .sendMessage{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+                height: fit-content;
+                padding-bottom: 20px;
+                padding: 0 20px 20px 20px;
+
+                & input {
+                    background-color: #eee;
+                    border: none;
+                    padding: 12px 15px;
+                    width: 100%;
+                    border-radius: 10px;
+                    outline: transparent;
+                }
+
+                & button{
+                    height: 20px;
+                }
+
+                & .emojiPanelBtn{
+                    background: none;
+                    border: none;
+                    color: white;
+                    cursor: pointer;
+                    outline: transparent;
+                }
+
+                & .pickerPanel{
+                    position: absolute;
+                    bottom:70px;
+                    right: 20px;
+                    z-index: 10;
+                }
+            }
+        }
+    }
+
+}
+
+.incommingCall{
+    position: absolute;
+    z-index: 100;
+    width: 200px;
+    height: 220px;
+    background: hsl(249, 19%, 10%);
+    top:50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+
+    p{
+        margin: 0;
+        padding: 0;
+        font-size: 0.7rem;
+        color: hsl(0, 0%, 70%);
+    }
+
+    & .userInfoContainer{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        & .nameContainer{
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            align-items: center;
+    
+            & .name{
+                font-size: 1rem;
+                color: white;
+            }
+        }
+    
+        & .imgContainer{
+            max-height: 70px;
+            height: 100%;
+    
+            & .profilePic{
+                max-height: 70px;
+                height: 100%;
+                border-radius: 50%;
+            }
+        }
+    }
+
+
+    & .BtnContainer{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;    
+    
+        & .endCallBtn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 100%;
+            border: none;
+            background-color: #FF2849;
+            color: white;
+            cursor: pointer;
+        }
+    
+        & .acceptCallBtn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 100%;
+            border: none;
+            background-color: limegreen;
+            color: white;
+            cursor: pointer;
+        }
+    }
+}
+
+.outGoingVoiceCall{
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    min-height: 100vh;
+    height: fit-content;
+    background: hsl(249, 19%, 10%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 50px;
+    overflow: auto;
+
+    & .nameContainer{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+
+        & h1{
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 100;
+        }
+    }
+
+
+    & .imgContainer{
+        max-height: 300px;
+        height: 100%;
+
+        & .profilePic{
+            max-height: 300px;
+            height: 100%;
+            border-radius: 50%;
+        }
+    }
+
+
+    & .endCallBtn{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 100%;
+        border: none;
+        background-color: #FF2849;
+        color: white;
+        cursor: pointer;
+    }
+}
+
+.callAccepted{
+    position: absolute;
+    z-index: 100;
+    width: 300px;
+    height: 200px;
+    background: hsl(249, 19%, 10%);
+}
+
+
+#remote-video{
+    position: absolute;
+    right: 300px;
+    top: 0;
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    z-index: 1000;
+}
+
+#video-local-zego{
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+    width: 200px;
+    height: 200px;
+}

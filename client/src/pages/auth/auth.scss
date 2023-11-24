@@ -1,0 +1,258 @@
+* {
+    font-family: 'Roboto', sans-serif; 
+}
+
+main{
+
+    & .auth{
+        background: #1f1d2b;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-family: 'Montserrat', sans-serif;
+        height: 100vh;
+        
+        p {
+            font-size: 14px;
+            font-weight: 100;
+            line-height: 20px;
+            letter-spacing: 0.5px;
+            margin: 20px 0 30px;
+        }
+
+        h1 {
+            font-weight: bold;
+            margin: 0;
+            color: white;
+        }
+        h2 {
+            text-align: center;
+        }
+        span {
+            font-size: 12px;
+        }
+        a {
+            color: #333;
+            font-size: 14px;
+            text-decoration: none;
+            margin: 15px 0;
+        }
+        button {
+            border-radius: 15px;
+            border: 1px solid #313131;
+            background-color: #313131;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 12px 45px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: transform 80ms ease-in;
+            cursor: pointer;
+
+            &:active {
+                transform: scale(0.95);
+            }
+            &:focus {
+                outline: none;
+            }
+            &.ghost {
+                background-color: transparent;
+                border-color: #FFFFFF;
+                color: white;
+            }
+            &:disabled{
+                opacity: 0.5;
+            }
+        }
+
+        .rowContainer{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+
+            & .countDown{
+                position: absolute;
+                top: 50%;
+                right: -30px;
+                transform: translate(0, -50%);
+            }
+        }
+        form {
+            background-color: #212130;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 50px;
+            height: 100%;
+            text-align: center;
+            gap: 10px;
+            position: relative;
+        }
+        input {
+            background-color: #eee;
+            border: none;
+            padding: 12px 15px;
+            margin: 8px 0;
+            width: 100%;
+            border-radius: 10px;
+        }
+        label{
+            width: 100%;
+        }
+        .container {
+            background-color: #212130;
+            border-radius: 10px;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+            0 10px 10px rgba(0,0,0,0.22);
+            position: relative;
+            overflow: hidden;
+            width: 768px;
+            max-width: 100%;
+            min-height: 480px;
+            &.right-panel-active {
+                .sign-in-container {
+                    transform: translateX(100%);
+                }
+                .sign-up-container {
+                    transform: translateX(100%);
+                    opacity: 1;
+                    z-index: 5;
+                    animation: show 0.6s;
+                }
+                .overlay-container {
+                    transform: translateX(-100%);
+                }
+                .overlay {
+                    transform: translateX(50%);
+                }
+                .overlay-left {
+                    transform: translateX(0);
+                }
+                .overlay-right {
+                    transform: translateX(20%);
+                }
+            }
+        }
+        .form-container {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            transition: all 0.6s ease-in-out;
+        }
+        .sign-in-container {
+            left: 0;
+            width: 50%;
+            z-index: 2;
+        }
+        .sign-up-container {
+            left: 0;
+            width: 50%;
+            opacity: 0;
+            z-index: 1;
+        }
+        
+        @keyframes show {
+
+            0%, 49.99% {
+                opacity: 0;
+                z-index: 1;
+            } 
+
+            50%, 100% {
+            opacity: 1;
+            z-index: 5;
+            }
+        }
+        
+        .overlay-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: transform 0.6s ease-in-out;
+            z-index: 100;
+        }
+        
+        .overlay {
+            // background: #FF416C;
+            // background: -webkit-linear-gradient(to right, #f49d0c,#d87607 ,#913f0f);
+            // background: linear-gradient(to right, #f49d0c,#d87607 ,#913f0f);
+
+            background: rgb(33,33,48);
+            background: linear-gradient(90deg, hsl(240, 19%, 30%) 30%, hsl(240, 20%, 45%) 70%);
+
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 0 0;
+            color: #FFFFFF;
+            position: relative;
+            left: -100%;
+            height: 100%;
+            width: 200%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+        }
+        img{ 
+            height: 200px;
+            margin-bottom: 20px;
+        }
+        .rightImg{ 
+            transform: scaleX(-1);
+        }
+        .overlay-panel {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 40px;
+            text-align: center;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+        }
+        .overlay-left {
+            transform: translateX(-20%);
+        }
+        .overlay-right {
+            right: 0;
+            transform: translateX(0);
+        }
+
+        & .error{
+            color: hsl(0, 100%, 35%);
+            position: absolute;
+            bottom: 0;
+
+            & p{
+                font-weight: 600;
+            }
+        }
+        & .regSuccess{
+            color: limegreen;
+            position: absolute;
+            bottom: 0;
+            & p{
+                font-weight: 600;
+            }
+        }
+
+        & .regError{
+            color: hsl(0, 100%, 35%);
+            position: absolute;
+            bottom: 0;
+            & p{
+                font-weight: 600;
+            }
+        }
+    }
+}
