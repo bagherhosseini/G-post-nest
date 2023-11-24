@@ -3,7 +3,6 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
-import * as https from 'https';
 
 async function bootstrap() {
   dotenv.config();
@@ -13,15 +12,7 @@ async function bootstrap() {
   };
   const app = await NestFactory.create(AppModule, { httpsOptions });
   app.enableCors({
-    origin: [
-      'https://localhost:3000',
-      'https://172.27.48.1:3000',
-      'https://172.27.48.1:3000/',
-      'https://192.168.195.69:3000',
-      'https://example.com',
-      'https://www.example.com',
-      'https://app.example.com',
-    ],
+    origin: [process.env.CLIENT_URL],
     // origin: '*',
     methods: ['GET', 'POST'],
     credentials: true,
