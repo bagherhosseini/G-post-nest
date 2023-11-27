@@ -59,7 +59,10 @@ export default function InCommingCall() {
       });
 
       peer.signal(callerSignal.value);
-      activePeers.value = peer;
+      activePeers.value = [
+        ...activePeers.value,
+        peer,
+      ];
     } catch (err) {
       console.log(err);
     }

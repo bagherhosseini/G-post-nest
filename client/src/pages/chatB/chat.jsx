@@ -1,4 +1,5 @@
 import { useSignalEffect } from '@preact/signals-react';
+import { useParams } from 'react-router-dom';
 
 import './style.scss';
 
@@ -7,8 +8,12 @@ import {
     socketListener,
     call
 } from '../../features/chatB/index.jsx'
+import { socket } from '../../services/lib/stocket.js';
+import { userStatus } from '../../features/chatB/signals/signals.jsx';
 
 const ChatB = () => {
+    const { idPram } = useParams();
+
     useSignalEffect(() => {
         socketListener();
     });
@@ -16,6 +21,12 @@ const ChatB = () => {
     const handleVideoCall = async (isVideoCallPram) => {
         call(isVideoCallPram);
     }
+
+    useSignalEffect(() => {
+        socket.on('userStatus', (data) => {
+            userStatus.value = data.status;
+        });
+    });
 
     return (
         <div className='chat'>

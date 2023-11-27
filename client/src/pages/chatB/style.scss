@@ -92,6 +92,12 @@
                 flex-direction: row;
                 justify-content: space-between;
 
+                & .userStatus{
+                    height: 20px;
+                    width: 20px;
+                    border-radius: 100%;
+                }
+
                 & .call{
                     display: flex;
                     gap: 20px;

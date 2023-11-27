@@ -26,6 +26,11 @@ export default function SendMessage() {
         }
     });
 
+    const handleUserIdChange = (e) => {
+        userId.value = e.target.value;
+        socket.emit('userStatus', { userId: parseInt(userId.value) });
+    }
+
     const handleFileInputChange = (e) => {
         const fileSelected = e.target.files[0];
         if (fileSelected) {
@@ -111,7 +116,7 @@ export default function SendMessage() {
             <input
                 type="text"
                 value={userId.value}
-                onChange={(e) => userId.value = e.target.value}
+                onChange={(e) => handleUserIdChange(e)}
                 placeholder="Type recipient's ID..."
                 required
             />

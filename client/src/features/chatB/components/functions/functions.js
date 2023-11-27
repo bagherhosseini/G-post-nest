@@ -54,7 +54,6 @@ export function socketListener() {
     });
 
     socket.on('callEnded', (data) => {
-        console.log('callEnded');
         stopCam(userStream.value);
         stopCam(myStream.value);
         callAccepted.value = false;
@@ -62,9 +61,7 @@ export function socketListener() {
         outGoingCall.value = false;
         userStream.value = null;
         myStream.value = null;
-        console.log(' userStream.value', userStream.value);
-        console.log(' myStream.value', myStream.value);
-        // activePeers.value.destroy();
+        
         window.location.reload();
     });
 
@@ -117,17 +114,22 @@ export async function call(isVideoCallPram) {
                 console.log('outGoingCall after socket');
             });
 
+
             peer.on("stream", (stream) => {
                 userStream.value = stream;
             });
+
+            activePeers.value = [
+                ...activePeers.value,
+                peer,
+            ];
 
             socket.on("callAccepted", (data) => {
                 inCommingCall.value = false;
                 callAccepted.value = true;
                 peer.signal(data.signal);
             });
-            activePeers.value = peer;
-            // activePeers.current = peer;
+
         } else {
             alert('Please Enter Recipient ID call');
         }

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useTransition } from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 import { useSignalEffect } from '@preact/signals-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhoneSlash } from '@fortawesome/free-solid-svg-icons';
@@ -18,7 +18,6 @@ import {
 } from '../../../signals/signals';
 
 export default function CallAccepted() {
-    const [isPending, startTransition] = useTransition();
     const userStreamRef = useRef(null);
     const myStreamRef = useRef(null);
 
@@ -42,10 +41,7 @@ export default function CallAccepted() {
             myStreamRef.current = null;
         }
         
-        // peer.destroy();
-
-        console.log('end call', myStream.value);
-        console.log('end call', userStream.value);
+        // activePeers.value[0].destroy();
         window.location.reload();
     }
 

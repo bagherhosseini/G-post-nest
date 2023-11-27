@@ -17,5 +17,6 @@ export const inCommingCall = signal(false);
 export const callAccepted = signal(false);
 export const callerSignal = signal(null);
 export const isVideoCall = signal(false);
+export const userStatus = signal('offline');
 
-export const activePeers = signal();
+export const activePeers = signal([]);

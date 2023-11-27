@@ -5,6 +5,7 @@ import { faPhoneVolume, faVideo } from '@fortawesome/free-solid-svg-icons';
 import Peer from 'simple-peer';
 
 import {
+    userStatus,
     myStream,
     userStream,
 } from '../../../signals/signals';
@@ -25,6 +26,7 @@ export default function ChatHeader({handleCall}) {
     return (
         <header>
             <p>Name</p>
+            <span className='userStatus' style={{backgroundColor: userStatus.value === 'online' ? 'green': 'red'}} />
             <div className='call'>
                 <button onClick={ ()=>{handleCall(false)} }>
                     <FontAwesomeIcon icon={faPhoneVolume} />
