@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleAuth } from "../../index";
 import { authApiService } from "../../../../services/index";
@@ -9,6 +9,7 @@ export default function Login() {
     const [message, setMessage] = useState('');
     const [error, setError] = useState(false);
     const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -20,19 +21,19 @@ export default function Login() {
                 return;
             }
             const response = await authApiService.signIn(email, password);
-
             if (response.status === 200) {
                 navigate("/home/", { state: { email } });
+            }else{
+                setError(false);
+                setMessage(response.data.message)
             }
-
             return;
         } catch (error) {
             setError(false);
-            setMessage(error.message)
+            setMessage(error.response.data.message)
             return;
         }
     };
-
 
     return (
         <div className="form-container sign-in-container">

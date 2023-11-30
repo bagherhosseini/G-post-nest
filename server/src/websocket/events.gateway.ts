@@ -11,12 +11,13 @@ import { SocketDto } from './stocket.dto';
 
 @WebSocketGateway({
   cors: {
-    origin: ['https://localhost:3000', 'https://192.168.10.147:3000']
+    origin: ['https://localhost:3000', 'https://192.168.195.69:3000'],
   },
   secure: true,
 })
 export class SocketGateway
-  implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit {
+  implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit
+{
   @WebSocketServer()
   server: Server;
 

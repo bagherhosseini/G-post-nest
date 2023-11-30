@@ -34,34 +34,27 @@ export const authApiService = {
   },
 
   signUp: async (name, email, password) => {
-    try {
-      const response = await axiosClient.post('/auth/signUp', { name, email, password });
-      console.log(response);
-      const data = response.data;
-      axiosClient.defaults.headers = {
-        Authorization: `Bearer ${data.access_token}`,
-      };
-      return response;
-    } catch (error) {
-      console.error("Error:", error);
-      throw error;
-    }
+    const response = await axiosClient
+      .post("/auth/signUp", { name, email, password })
+      .then((response) => {
+        return response;
+      });
+    axiosClient.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${response.data.access_token}`;
+    return response;
   },
 
   signIn: async (email, password) => {
-    try {
-      const response = await axiosClient.post('/auth/signIn', { email, password });
-      const data = response.data;
-      axiosClient.defaults.headers = {
-        Authorization: `Bearer ${data.access_token}`,
-      };
-
-      console.log(data.access_token);
-      return response;
-    } catch (error) {
-      console.error("Error:", error);
-      throw error;
-    }
+    const response = await axiosClient
+      .post("/auth/signIn", { email, password })
+      .then((response) => {
+        return response;
+      });
+    axiosClient.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${response.data.access_token}`;
+    return response;
   },
 
   signOut: () => {

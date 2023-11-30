@@ -1,41 +1,32 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
 import { Nav, Main } from '../../features/home/index';
+import useCookie from '../../hooks/useCookie';
 import "./styles.scss"
 
-
 export default function Home() {
-  const navigate = useNavigate();
-
-  async function getTodos() {
-    try {
-      const response = await fetch('http://localhost:5050/chat', {
-        method: 'GET',
-        credentials: "include",
-        headers: {
-        'Content-Type': 'application/json'
-        }
-      });
-      const data = await response.json();
-      console.log(data);
-      if(data === "Authentication error: jwt expired" || data === "Authentication error: jwt must be provided" || data === "Token not found"){
-        navigate("/");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    getTodos();
-  }, []);
+  const [authToken, updateAuthToken, removeAuthToken] = useCookie("authToken");
+  // if(authToken === "undefined" || authToken === undefined || authToken === null || authToken === ""){
+  //   return (
+  //     <div style={{background: "#1F1D2B", color: "white"}}>
+  //       loading...
+  //     </div>
+  //   );
+  // }
 
   return (
     <section className='home'>
-      <div className='content'>
-        <Nav />
-        <Main />
-      </div>
+      {
+        authToken === "undefined" || authToken === undefined || authToken === null || authToken === "" ? (
+          <div style={{ background: "#1F1D2B", color: "white" }}>
+            loading...
+          </div>
+        ) : (
+          <div className='content'>
+            <Nav />
+            <Main />
+          </div>
+        )
+      }
     </section>
   )
+
 }

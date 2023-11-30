@@ -24,16 +24,17 @@ export default function Register() {
                 return;
             }
             const response = await authApiService.signUp(userName, userEmail, password);
-
             if (response.status === 201) {
                 setMessage('registration successful 🚀');
                 setError(true);
+            }else{
+                setError(false);
+                setMessage(response.data.message)   
             }
-
             return;
         } catch (error) {
             setError(false);
-            setMessage(error.message)   
+            setMessage(error.response.data.message)
         }
 
         setButtonDisabled(true);

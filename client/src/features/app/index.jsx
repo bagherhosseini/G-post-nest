@@ -1,0 +1,1 @@
+export { default as CheckAuth } from './components/functions/functions';

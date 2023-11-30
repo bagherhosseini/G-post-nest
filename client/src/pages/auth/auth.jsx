@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import './auth.scss';
 import {Register, Login, Overlay} from '../../features/auth';
+import useCookie from '../../hooks/useCookie';
 
 export default function Auth() {
     const [isRightPanelActive, setIsRightPanelActive] = useState(false);
+    const [authToken, updateAuthToken, removeAuthToken] = useCookie("authToken");
+
+    if(authToken !== "undefined" && authToken !== undefined && authToken !== null && authToken !== ""){
+        return null;
+    }  
 
     const handleSignUpClick = () => {
         setIsRightPanelActive(true);
