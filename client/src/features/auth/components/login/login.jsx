@@ -20,15 +20,12 @@ export default function Login() {
                 return;
             }
             const response = await authApiService.signIn(email, password);
-            const data = await response.json();
-            setError(response.ok);
-            if (response.ok) {
+
+            if (response.status === 200) {
                 navigate("/home/", { state: { email } });
             }
-            setError(response.ok);
-            setMessage(data);
-            return;
 
+            return;
         } catch (error) {
             setError(false);
             setMessage(error.message)
@@ -42,12 +39,12 @@ export default function Login() {
             <form className="form" onSubmit={handleSubmit}>
                 <h1>Sign In</h1>
 
-                <label htmlFor="email" className="userInfoLabel">
-                    <input id="email" className="userInfo" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                <label htmlFor="emailLogin" className="userInfoLabel">
+                    <input id="emailLogin" className="userInfo" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
                 </label>
 
-                <label htmlFor="password" className="userInfoLabel">
-                    <input type="password" id="password" className="userInfo" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Min 3 charaters long" />
+                <label htmlFor="passwordLogin" className="userInfoLabel">
+                    <input type="password" id="passwordLogin" className="userInfo" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Min 3 charaters long" />
                 </label>
 
                 <button type="submit">Sign In</button>

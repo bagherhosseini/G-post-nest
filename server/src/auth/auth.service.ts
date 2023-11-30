@@ -16,6 +16,7 @@ export class AuthService {
     try {
       const user = await this.prisma.user.create({
         data: {
+          name: body.name,
           email: body.email,
           password: body.password,
         },
@@ -57,7 +58,6 @@ export class AuthService {
         secure: true,
         httpOnly: false,
       });
-      console.log(res);
       return res.json(await this.signToken(user.id, user.email)).status(200);
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {

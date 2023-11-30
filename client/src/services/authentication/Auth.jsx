@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // export default function googleAuth(userInfo) {
 //     return fetch('http://localhost:5050/auth/google', {
 //         method: 'POST',
@@ -11,106 +13,90 @@
 
 export const API_URL = process.env.REACT_APP_API_URL;
 
-const client = {
+const axiosClient = axios.create({
   baseURL: API_URL,
   withCredentials: true,
-};
+});
 
 export const authApiService = {
-
   googleAuth: async (userInfo) => {
-    const response = await fetch(`${client.baseURL}/auth/google`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userInfo }),
-      credentials: "include",
-    }).then((response) => response);
-    
-    // client.defaults.headers = {
-    //   Authorization: `Bearer ${response.accessToken}`,
-    // };
-    
-    return response;
+    try {
+      const response = await axiosClient.post('/auth/google', { userInfo });
+      const data = response.data;
+      axiosClient.defaults.headers = {
+        Authorization: `Bearer ${data.access_token}`,
+      };
+      return response;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
   },
 
-  signUp: async (userName, userEmail, password) => {
-    const response = await fetch(`${client.baseURL}/auth/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userName, userEmail, password }),
-      credentials: "include",
-    }).then((response) => response);
-    
-    // client.defaults.headers = {
-    //   Authorization: `Bearer ${response.accessToken}`,
-    // };
-    
-    return response;
+  signUp: async (name, email, password) => {
+    try {
+      const response = await axiosClient.post('/auth/signUp', { name, email, password });
+      console.log(response);
+      const data = response.data;
+      axiosClient.defaults.headers = {
+        Authorization: `Bearer ${data.access_token}`,
+      };
+      return response;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
   },
 
   signIn: async (email, password) => {
-    const response = await fetch(`${client.baseURL}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-      credentials: "include",
-    }).then((response) => response);
-    
-    // client.defaults.headers = {
-    //   Authorization: `Bearer ${response.accessToken}`,
-    // };
-    
-    return response;
+    try {
+      const response = await axiosClient.post('/auth/signIn', { email, password });
+      const data = response.data;
+      axiosClient.defaults.headers = {
+        Authorization: `Bearer ${data.access_token}`,
+      };
+
+      console.log(data.access_token);
+      return response;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
   },
-  
+
   signOut: () => {
-    client.defaults.headers = {
+    axiosClient.defaults.headers = {
       Authorization: undefined,
     };
   },
-  
+
   verifyEmail: async (linkToken) => {
-    const response = await fetch(`${client.baseURL}/auth/verifyEmail`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ linkToken }),
-      credentials: "include",
-    }).then((response) => response);
-    
-    return response;
+    try {
+      const response = await axiosClient.post('/auth/verifyEmail', { linkToken });
+      return response;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
   },
 
   sendMessage: async (data) => {
-    const response = await fetch(`${client.baseURL}/chat/send`, {
-      method: "POST",
-      // headers: {
-      //   'Content-Type': 'multipart/form-data',
-      // },
-      body: data,
-      credentials: "include",
-    }).then((response) => response);
-    
-    return response;
+    try {
+      const response = await axiosClient.post('/chat/send', data);
+      return response;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
   },
 
   generateToken: async (userId) => {
-    const response = await fetch(`${client.baseURL}/chat/token`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId }),
-      credentials: "include",
-    }).then((response) => response);
-    
-    return response;
+    try {
+      const response = await axiosClient.post('/chat/token', { userId });
+      return response;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
   },
 };

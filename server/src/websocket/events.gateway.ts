@@ -11,7 +11,7 @@ import { SocketDto } from './stocket.dto';
 
 @WebSocketGateway({
   cors: {
-    origin: ['https://localhost:3000', 'https://192.168.10.93:3000']
+    origin: ['https://localhost:3000', 'https://192.168.10.147:3000']
   },
   secure: true,
 })

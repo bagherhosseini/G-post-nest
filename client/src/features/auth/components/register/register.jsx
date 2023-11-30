@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleAuth } from "../../index";
 import { authApiService } from "../../../../services/index";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 export default function Register() {
     const [userName, setUserName] = useState('');
@@ -23,10 +24,13 @@ export default function Register() {
                 return;
             }
             const response = await authApiService.signUp(userName, userEmail, password);
-            const data = await response.json();
-            setError(response.ok);
-            setMessage(data);
 
+            if (response.status === 201) {
+                setMessage('registration successful 🚀');
+                setError(true);
+            }
+
+            return;
         } catch (error) {
             setError(false);
             setMessage(error.message)   
