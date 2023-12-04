@@ -1,0 +1,13 @@
+import { Controller, Get, Req, Response } from '@nestjs/common';
+import { UserService } from './user.service';
+import { Response as ResponseEx } from 'express';
+
+@Controller('user')
+export class UserController {
+  constructor(private userService: UserService) {}
+
+  @Get('getMyInfo')
+  getMyInfo(@Response() res: ResponseEx, @Req() req: any) {
+    return this.userService.myInfo(res, req);
+  }
+}

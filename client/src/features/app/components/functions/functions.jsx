@@ -10,6 +10,8 @@ export default function CheckAuth() {
       navigate("/");
     }else if(authToken && window.location.pathname === "/"){
       navigate("/home");
+    }else if(authToken){
+      
     }
   });
 

@@ -3,14 +3,14 @@ import { Injectable } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { signInType, signUpType } from './interface';
 import { PrismaService } from '../prisma/prisma.service';
-import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
+import { CustomJwtService } from './strategy/customJwt.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private prisma: PrismaService,
-    private jwtService: JwtService,
+    private jwtService: CustomJwtService,
   ) {}
 
   async signUp(body: signUpType, res: Response) {
@@ -25,9 +25,10 @@ export class AuthService {
       delete user.password;
 
       const payload = { sub: user.id, username: user.email };
-      return res
-        .status(200)
-        .json({ access_token: await this.jwtService.signAsync(payload), user });
+      return res.status(200).json({
+        access_token: await this.jwtService.signAsync(payload, '1h'),
+        user,
+      });
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
@@ -57,7 +58,10 @@ export class AuthService {
 
       delete user.password;
 
-      res.cookie('authToken', user, {
+      const payload = { user };
+      const authToken = await this.jwtService.signAsync(payload, '1h');
+
+      res.cookie('authToken', authToken, {
         maxAge: 3600000,
         sameSite: 'none',
         secure: true,
@@ -65,31 +69,11 @@ export class AuthService {
       });
 
       return res.status(200).json({
-        access_token: await this.signToken(user.id, user.email),
+        access_token: await this.jwtService.signAsync(payload, '1h'),
         user,
       });
     } catch (error) {
       return res.status(500).json({ message: error });
     }
-  }
-
-  async signToken(
-    userId: string,
-    email: string,
-  ): Promise<{ access_token: string }> {
-    const payload = {
-      sub: userId,
-      email,
-    };
-    const secret = 'F84C38585A7A74E8F85BB8111BDE2';
-
-    const token = await this.jwtService.signAsync(payload, {
-      expiresIn: '15m',
-      secret: secret,
-    });
-
-    return {
-      access_token: token,
-    };
   }
 }

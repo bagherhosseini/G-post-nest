@@ -11,17 +11,18 @@ import { jwtConstants } from './strategy/jwt.constants';
 import { AuthGuard } from './strategy/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { ExampleMiddeleware } from './middelewares/example.middeleware';
+import { CustomJwtService } from './strategy/customJwt.service';
 
 @Module({
   imports: [
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
     }),
   ],
   controllers: [AuthController],
   providers: [
+    CustomJwtService,
     AuthService,
     {
       provide: APP_GUARD,

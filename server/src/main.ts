@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   dotenv.config();
@@ -11,9 +12,9 @@ async function bootstrap() {
     cert: fs.readFileSync(`${__dirname}/../src/localhost.pem`),
   };
   const app = await NestFactory.create(AppModule, { httpsOptions });
+  app.use(cookieParser());
   app.enableCors({
     origin: [process.env.CLIENT_URL],
-    // origin: '*',
     methods: ['GET', 'POST'],
     credentials: true,
   });

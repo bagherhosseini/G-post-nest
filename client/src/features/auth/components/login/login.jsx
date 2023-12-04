@@ -22,7 +22,7 @@ export default function Login() {
             }
             const response = await authApiService.signIn(email, password);
             if (response.status === 200) {
-                navigate("/home/", { state: { email } });
+                navigate("/home/");
             }else{
                 setError(false);
                 setMessage(response.data.message)
@@ -41,11 +41,11 @@ export default function Login() {
                 <h1>Sign In</h1>
 
                 <label htmlFor="emailLogin" className="userInfoLabel">
-                    <input id="emailLogin" className="userInfo" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                    <input id="emailLogin" className="userInfo" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" autoComplete="current-email" />
                 </label>
 
                 <label htmlFor="passwordLogin" className="userInfoLabel">
-                    <input type="password" id="passwordLogin" className="userInfo" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Min 3 charaters long" />
+                    <input type="password" id="passwordLogin" className="userInfo" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Min 3 charaters long" autoComplete="current-password"/>
                 </label>
 
                 <button type="submit">Sign In</button>

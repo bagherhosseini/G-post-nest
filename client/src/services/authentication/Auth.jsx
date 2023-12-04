@@ -57,6 +57,15 @@ export const authApiService = {
     return response;
   },
 
+  getMyInfo: async () => {
+    const response = await axiosClient
+      .get("/user/myInfo")
+      .then((response) => {
+        return response;
+      });
+    return response;
+  },
+
   signOut: () => {
     axiosClient.defaults.headers = {
       Authorization: undefined,

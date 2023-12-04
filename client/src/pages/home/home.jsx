@@ -1,31 +1,15 @@
+import { myInfo } from '../../features/app/signals/signals';
 import { Nav, Main } from '../../features/home/index';
-import useCookie from '../../hooks/useCookie';
 import "./styles.scss"
 
 export default function Home() {
-  const [authToken, updateAuthToken, removeAuthToken] = useCookie("authToken");
-  // if(authToken === "undefined" || authToken === undefined || authToken === null || authToken === ""){
-  //   return (
-  //     <div style={{background: "#1F1D2B", color: "white"}}>
-  //       loading...
-  //     </div>
-  //   );
-  // }
-
+  console.log(myInfo.value);
   return (
     <section className='home'>
-      {
-        authToken === "undefined" || authToken === undefined || authToken === null || authToken === "" ? (
-          <div style={{ background: "#1F1D2B", color: "white" }}>
-            loading...
-          </div>
-        ) : (
-          <div className='content'>
-            <Nav />
-            <Main />
-          </div>
-        )
-      }
+      <div className='content'>
+        <Nav />
+        <Main />
+      </div>
     </section>
   )
 

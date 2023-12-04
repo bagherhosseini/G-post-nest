@@ -6,6 +6,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
 import { UploadsModule } from './getUploads/uploads.module';
 import { ChatModule } from './chat/chat.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ChatModule } from './chat/chat.module';
         index: false,
       },
     }),
+    UserModule,
   ],
   controllers: [],
 })

@@ -69,15 +69,15 @@ export default function Register() {
                 <h1>Sign Up</h1>
 
                 <label htmlFor="username" className="userInfoLabel">
-                    <input type="text" id="username" className="userInfo" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Name" />
+                    <input type="text" id="username" className="userInfo" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Name" autoComplete="current-name" />
                 </label>
 
                 <label htmlFor="email" className="userInfoLabel">
-                    <input id="email" className="userInfo" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} placeholder="Email" />
+                    <input id="email" className="userInfo" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} placeholder="Email" autoComplete="current-email"/>
                 </label>
 
                 <label htmlFor="password" className="userInfoLabel">
-                    <input type="password" id="password" className="userInfo" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Min 3 charaters long" />
+                    <input type="password" id="password" className="userInfo" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Min 3 charaters long" autoComplete="current-password" />
                 </label>
 
                 <div className="rowContainer">
