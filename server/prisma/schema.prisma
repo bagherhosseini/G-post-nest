@@ -17,4 +17,21 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  friendships1 Friends[] @relation("FriendshipUser1")
+  friendships2 Friends[] @relation("FriendshipUser2")
+}
+
+model Friends {
+  id              String @id @default(uuid())
+  status          String
+  reqSenderId     String
+  reqSenderName   String
+  reqReceiverId   String
+  reqReceiverName String
+
+  user1 User @relation("FriendshipUser1", fields: [reqSenderId], references: [id])
+  user2 User @relation("FriendshipUser2", fields: [reqReceiverId], references: [id])
+
+  @@unique([reqSenderId, reqReceiverId], name: "unique_friendship")
 }
