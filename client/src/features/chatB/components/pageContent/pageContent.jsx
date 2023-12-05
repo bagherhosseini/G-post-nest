@@ -3,6 +3,7 @@ import React from 'react'
 import {
   Messages,
   ChatHeader,
+  ContactList,
   OutGoingCall as OutGoingCallUI,
   InCommingCall as InCommingCallUI,
   CallAccepted as CallAcceptedUI,
@@ -18,7 +19,7 @@ export default function PageContent({handleCall}) {
 
   return (
     <section className='content'>
-
+      <ContactList />
       <div className='messageContainer'>
         <ChatHeader handleCall={handleCall}/>
         <Messages />

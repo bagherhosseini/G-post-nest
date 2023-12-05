@@ -4,6 +4,9 @@ export { default as PageContent } from './components/pageContent/pageContent';
 // messages
 export { default as Messages } from './components/messages/messages';
 
+//contact
+export { default as ContactList } from './components/contactList/contactList';
+
 //funciton
 export {
     socketListener, 
