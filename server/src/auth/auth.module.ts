@@ -7,7 +7,6 @@ import {
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './strategy/jwt.constants';
 import { AuthGuard } from './strategy/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { ExampleMiddeleware } from './middelewares/example.middeleware';
@@ -17,7 +16,7 @@ import { CustomJwtService } from './strategy/customJwt.service';
   imports: [
     JwtModule.register({
       global: true,
-      secret: jwtConstants.secret,
+      secret: process.env.JWT_SECRET,
     }),
   ],
   controllers: [AuthController],
