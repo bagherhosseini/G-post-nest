@@ -17,7 +17,7 @@ async function bootstrap() {
     origin: [process.env.CLIENT_URL],
     credentials: true,
     exposedHeaders: 'Set-Cookie',
-    methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
+    methods: ['GET', 'POST'],
     allowedHeaders: [
       'Access-Control-Allow-Origin',
       'Content-Type',
