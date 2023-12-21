@@ -18,6 +18,11 @@ async function bootstrap() {
     origin: [process.env.CLIENT_URL],
     methods: ['GET', 'POST'],
     credentials: true,
+    allowedHeaders: [
+      'Access-Control-Allow-Origin',
+      'Content-Type',
+      'Authorization',
+    ],
   });
   app.useGlobalPipes(
     new ValidationPipe({
