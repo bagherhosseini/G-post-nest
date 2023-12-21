@@ -14,10 +14,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser(process.env.JWT_SECRET));
   app.enableCors({
-    origin: ['*'],
+    origin: '*',
     credentials: true,
     exposedHeaders: 'Set-Cookie',
-    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+    methods: ['GET', 'POST'],
     allowedHeaders: [
       'Access-Control-Allow-Origin',
       'Content-Type',
