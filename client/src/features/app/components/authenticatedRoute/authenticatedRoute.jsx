@@ -1,8 +1,8 @@
 import React from 'react'
-import useCookie from '../../../../hooks/useCookie';
+import Cookies from "js-cookie"
 
 export default function AuthenticatedRoute({ children }) {
-    const [authToken, updateAuthToken, removeAuthToken] = useCookie("authToken");
+    const authToken = Cookies.get("authToken");
     return (
         authToken === "undefined" || authToken === undefined || authToken === null || authToken === "" ? (
             <p style={{
