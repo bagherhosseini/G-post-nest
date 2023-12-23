@@ -13,10 +13,12 @@ async function bootstrap() {
   // };
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser(process.env.JWT_SECRET));
+  const expressApp = app.getHttpAdapter().getInstance();
+  expressApp.set('trust proxy', 1);
   app.enableCors({
     origin: [process.env.CLIENT_URL],
     credentials: true,
-    exposedHeaders: 'Set-Cookie',
+    exposedHeaders: ['Set-Cookie'],
     methods: ['GET', 'POST'],
     allowedHeaders: [
       'Access-Control-Allow-Origin',
