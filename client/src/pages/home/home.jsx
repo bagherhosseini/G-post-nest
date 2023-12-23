@@ -3,7 +3,6 @@ import { Nav, Main } from '../../features/home/index';
 import "./styles.scss"
 
 export default function Home() {
-  console.log(myInfo.value);
   return (
     <section className='home'>
       <div className='content'>
@@ -12,5 +11,4 @@ export default function Home() {
       </div>
     </section>
   )
-
 }
