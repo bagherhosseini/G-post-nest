@@ -38,7 +38,7 @@ export class UserService {
 
       delete user.password;
 
-      return res.status(200).json(user);
+      return res.status(200).json({ user, authToken });
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: error });

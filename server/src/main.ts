@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 // import * as fs from 'fs';
 import * as cookieParser from 'cookie-parser';
-import { NestExpressApplication } from "@nestjs/platform-express"
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
   const port = process.env.PORT || 8080;
