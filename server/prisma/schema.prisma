@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,15 +9,14 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  friendships1 Friends[] @relation("FriendshipUser1")
-  friendships2 Friends[] @relation("FriendshipUser2")
+  id                String    @id @default(uuid())
+  name              String
+  email             String    @unique
+  password          String
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  friendReqSender   Friends[] @relation("FriendReqSender")
+  friendreqReceiver Friends[] @relation("FriendreqReceiver")
 }
 
 model Friends {
@@ -30,10 +26,9 @@ model Friends {
   reqSenderName   String
   reqReceiverId   String
   reqReceiverName String
-
-  user1 User @relation("FriendshipUser1", fields: [reqSenderId], references: [id])
-  user2 User @relation("FriendshipUser2", fields: [reqReceiverId], references: [id])
+  reqSender       User   @relation("FriendReqSender", fields: [reqSenderId], references: [id])
+  reqReceiver     User   @relation("FriendreqReceiver", fields: [reqReceiverId], references: [id])
 
   @@unique([reqSenderId, reqReceiverId], name: "unique_friendship")
-  @@index([reqReceiverId], name: "index_req_receiver_id")
+  @@index([reqReceiverId], map: "index_req_receiver_id")
 }
