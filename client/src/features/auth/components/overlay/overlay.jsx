@@ -1,11 +1,13 @@
 import React from 'react';
+import login from '../../../../assets/img/login.jpg';
+import register from '../../../../assets/img/register.jpg';
 
 export default function Overlay({ onSignUpClick, onSignInClick }) {
     return (
         <div className="overlay-container">
             <div className="overlay">
                 <div className="overlay-panel overlay-left">
-                <img src="https://cdn.discordapp.com/attachments/1074053506954186792/1098585647717027890/output_1.png" alt="" />
+                <img src={login} alt="" />
                     <h1>Welcome to G-Post!</h1>
                     <p>
                         To connect with your friends please sign in
@@ -15,7 +17,7 @@ export default function Overlay({ onSignUpClick, onSignInClick }) {
                     </button>
                 </div>
                 <div className="overlay-panel overlay-right">
-                <img className='rightImg' src="https://cdn.discordapp.com/attachments/1074053506954186792/1098575736094343188/Lovepik_com-402425950-3d-cartoon-style-plush-yellow-flower-model-element.png" alt="" />
+                <img className='rightImg' src={register} alt="" />
                     <h1>Welcome to G-Post!</h1>
                     <p>
                         Create your account and start your journey with us

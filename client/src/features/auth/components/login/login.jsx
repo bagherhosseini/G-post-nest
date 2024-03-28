@@ -22,6 +22,7 @@ export default function Login() {
             }
             const response = await authApiService.signIn(email, password);
             if (response.status === 200) {
+                console.log(response.data);
                 navigate("/home/");
             }else{
                 setError(false);

@@ -62,7 +62,7 @@ export default function SendMessage() {
                 formData.append('usersData', JSON.stringify({ from: myId, to: userId }));
 
                 const res = await authApiService.sendMessage(formData); // Assuming you have authApiService defined.
-                const resData = await res.json();
+                const resData = await res.data;
 
                 socket.emit('sendMessage', {
                     from: myId.value,
