@@ -10,9 +10,4 @@ export class UserController {
   getMyInfo(@Response() res: ResponseEx, @Req() req: any) {
     return this.userService.myInfo(res, req);
   }
-
-  @Get('getMyFriends')
-  getMyFriends(@Response() res: ResponseEx, @Req() req: RequestEx) {
-    return this.userService.getMyFriends(res, req);
-  }
 }
