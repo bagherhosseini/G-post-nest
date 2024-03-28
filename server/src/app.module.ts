@@ -7,6 +7,7 @@ import * as path from 'path';
 import { UploadsModule } from './getUploads/uploads.module';
 import { ChatModule } from './chat/chat.module';
 import { UserModule } from './user/user.module';
+import { FriendsModule } from './friends/friends.module';
 
 @Module({
   imports: [
@@ -15,13 +16,14 @@ import { UserModule } from './user/user.module';
     PrismaModule,
     SocketModule,
     UploadsModule,
+    FriendsModule,
+    UserModule,
     ServeStaticModule.forRoot({
       rootPath: path.join(__dirname, '..', '/src/uploads'),
       serveStaticOptions: {
         index: false,
       },
     }),
-    UserModule,
   ],
   controllers: [],
 })
