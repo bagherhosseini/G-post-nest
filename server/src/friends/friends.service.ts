@@ -55,6 +55,8 @@ export class FriendsService {
                 delete item.reqSenderName;
                 delete item.reqReceiverId;
                 delete item.reqReceiverName;
+                delete item.reqReceiverUserName;
+                delete item.reqSenderUserName;
                 return {
                     ...item,
                     friendId,
@@ -241,7 +243,7 @@ export class FriendsService {
                 },
             });
 
-            return res.status(200).json({ message: 'You have now accepted this user', acceptFriend });
+            return res.status(200).json({ message: 'You have now accepted this request', acceptFriend });
         } catch (error) {
             return res.status(500).json({ message: error });
         }
