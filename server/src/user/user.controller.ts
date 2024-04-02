@@ -6,8 +6,8 @@ import { Response as ResponseEx, Request as RequestEx } from 'express';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Get('getMyInfo')
-  getMyInfo(@Response() res: ResponseEx, @Req() req: any) {
+  @Get('myInfo')
+  myInfo(@Response() res: ResponseEx, @Req() req: any) {
     return this.userService.myInfo(res, req);
   }
 }
