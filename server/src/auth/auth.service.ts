@@ -18,15 +18,21 @@ export class AuthService {
       const user = await this.prisma.user.create({
         data: {
           name: body.name,
+          userName: body.userName,
           email: body.email,
           password: body.password,
         },
+        select: {
+          id: true,
+          name: true,
+          userName: true,
+          email: true,
+        },
       });
-      delete user.password;
 
-      const payload = { sub: user.id, username: user.email };
+      const payload = { sub: user.id, username: user.email, userName: user.userName};
       return res.status(200).json({
-        access_token: await this.jwtService.signAsync(payload, '1h'),
+        access_token: await this.jwtService.signAsync(payload, '5h'),
         user,
       });
     } catch (error) {
