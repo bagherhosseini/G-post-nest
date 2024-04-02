@@ -41,13 +41,15 @@ export class FriendsService {
             });
 
             const friends = myFriends.map((item) => {
-                let friendId, friendName;
+                let friendId, friendName, friendUserName;
                 if (item.reqSenderId === userId) {
                     friendId = item.reqReceiverId;
                     friendName = item.reqReceiverName;
+                    friendUserName = item.reqReceiverUserName;
                 } else if (item.reqReceiverId === userId) {
                     friendId = item.reqSenderId;
                     friendName = item.reqSenderName;
+                    friendUserName = item.reqSenderUserName;
                 }
                 delete item.reqSenderId;
                 delete item.reqSenderName;
@@ -57,6 +59,7 @@ export class FriendsService {
                     ...item,
                     friendId,
                     friendName,
+                    friendUserName,
                 };
             });
 
@@ -74,13 +77,29 @@ export class FriendsService {
             });
             const reqSenderId = loggedInUser.user.id;
             const reqSenderName = loggedInUser.user.name;
+            const reqSenderUserName = loggedInUser.user.userName;
 
             if (reqSenderId === body.id) {
                 return res.status(403).json({ message: 'You cannot add yourself' });
             }
 
             const reqReceiverId = body.id;
-            const reqReceiverName = (await this.prisma.user.findUnique({ where: { id: reqReceiverId } })).name;
+            const reqReceiverData = await this.prisma.user.findFirst({
+                where: {
+                    id: reqReceiverId,
+                },
+                select: {
+                    name: true,
+                    userName: true,
+                },
+            });
+
+            if (!reqReceiverData) {
+                return res.status(403).json({ message: 'User not found' });
+            }
+
+            const reqReceiverName = reqReceiverData.name;
+            const reqReceiverUserName = reqReceiverData.userName;
 
             const friends = await this.prisma.friends.findMany({
                 where: {
@@ -106,8 +125,10 @@ export class FriendsService {
                     status: "pending",
                     reqSenderId,
                     reqSenderName,
+                    reqSenderUserName,
                     reqReceiverId,
                     reqReceiverName,
+                    reqReceiverUserName
                 },
             });
 
@@ -121,6 +142,7 @@ export class FriendsService {
                     return res.status(500).json({ message: 'Something went wrong' });
                 }
             } else {
+                console.log(error);
                 return res.status(500).json({ message: error });
             }
         }
@@ -253,22 +275,27 @@ export class FriendsService {
             });
 
             const updateData = (arr: Array<Friends>, type: string) => arr.map((item) => {
-                let friendId, friendName;
+                let friendId, friendName, friendUserName;
                 if (type === 'sender') {
                     friendId = item.reqReceiverId;
                     friendName = item.reqReceiverName;
+                    friendUserName = item.reqReceiverUserName;
                 } else if (type === 'receiver') {
                     friendId = item.reqSenderId;
                     friendName = item.reqSenderName;
+                    friendUserName = item.reqSenderUserName;
                 }
                 delete item.reqSenderId;
                 delete item.reqSenderName;
                 delete item.reqReceiverId;
                 delete item.reqReceiverName;
+                delete item.reqReceiverUserName;
+                delete item.reqSenderUserName;
                 return {
                     ...item,
                     friendId,
                     friendName,
+                    friendUserName,
                 };
             });
 

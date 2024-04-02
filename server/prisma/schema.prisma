@@ -11,6 +11,7 @@ datasource db {
 model User {
   id                String    @id @default(uuid())
   name              String
+  userName          String    @unique
   email             String    @unique
   password          String
   createdAt         DateTime  @default(now())
@@ -20,14 +21,16 @@ model User {
 }
 
 model Friends {
-  id              String @id @default(uuid())
-  status          String
-  reqSenderId     String
-  reqSenderName   String
-  reqReceiverId   String
-  reqReceiverName String
-  reqSender       User   @relation("FriendReqSender", fields: [reqSenderId], references: [id])
-  reqReceiver     User   @relation("FriendreqReceiver", fields: [reqReceiverId], references: [id])
+  id                  String @id @default(uuid())
+  status              String
+  reqSenderId         String
+  reqSenderName       String
+  reqSenderUserName   String
+  reqReceiverId       String
+  reqReceiverName     String
+  reqReceiverUserName String
+  reqSender           User   @relation("FriendReqSender", fields: [reqSenderId], references: [id])
+  reqReceiver         User   @relation("FriendreqReceiver", fields: [reqReceiverId], references: [id])
 
   @@unique([reqSenderId, reqReceiverId], name: "unique_friendship")
   @@index([reqReceiverId], map: "index_req_receiver_id")
