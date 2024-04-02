@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { accepFriendType, friendRemoveType, friendType } from './interface';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { Friends } from '@prisma/client';
 
 @Injectable()
 export class FriendsService {
@@ -74,12 +75,12 @@ export class FriendsService {
             const reqSenderId = loggedInUser.user.id;
             const reqSenderName = loggedInUser.user.name;
 
-            if(reqSenderId === body.id){
+            if (reqSenderId === body.id) {
                 return res.status(403).json({ message: 'You cannot add yourself' });
             }
 
             const reqReceiverId = body.id;
-            const reqReceiverName = (await this.prisma.user.findUnique({where:{id: reqReceiverId}})).name;
+            const reqReceiverName = (await this.prisma.user.findUnique({ where: { id: reqReceiverId } })).name;
 
             const friends = await this.prisma.friends.findMany({
                 where: {
@@ -96,7 +97,7 @@ export class FriendsService {
                 },
             });
 
-            if(friends.length > 0){
+            if (friends.length > 0) {
                 return res.status(403).json({ message: 'You have already added this user' });
             }
 
@@ -115,7 +116,7 @@ export class FriendsService {
             if (error instanceof PrismaClientKnownRequestError) {
                 if (error.code === 'P2002') {
                     return res.status(403).json({ message: 'You have already added this user' });
-                }else{
+                } else {
                     //here the error could wrong senderId, receiverId or anything wrong with the data
                     return res.status(500).json({ message: 'Something went wrong' });
                 }
@@ -134,7 +135,7 @@ export class FriendsService {
             const userId = loggedInUser.user.id;
             const friendReqId = body.id;
 
-            if(userId === body.id){
+            if (userId === body.id) {
                 return res.status(403).json({ message: 'You cannot remove yourself' });
             }
 
@@ -153,7 +154,7 @@ export class FriendsService {
                 },
             });
 
-            if(friend.length === 0){
+            if (friend.length === 0) {
                 return res.status(403).json({ message: "You're not friend with this user" });
             }
 
@@ -168,7 +169,7 @@ export class FriendsService {
             if (error instanceof PrismaClientKnownRequestError) {
                 if (error.code === 'P2002') {
                     return res.status(403).json({ message: 'You have already added this user' });
-                }else{
+                } else {
                     //here the error could wrong senderId, receiverId or anything wrong with the data
                     return res.status(500).json({ message: 'Something went wrong' });
                 }
@@ -193,16 +194,16 @@ export class FriendsService {
                 },
             });
 
-            if(!friendReqData){
+            if (!friendReqData) {
                 return res.status(403).json({ message: "Friend request not found" });
             }
 
-            if(friendReqData.reqReceiverId !== userId){
+            if (friendReqData.reqReceiverId !== userId) {
                 return res.status(403).json({ message: "You're not allowed to accept this request" });
             }
 
-            if(friendReqData.status !== "pending"){
-                if(friendReqData.status === "success"){
+            if (friendReqData.status !== "pending") {
+                if (friendReqData.status === "success") {
                     return res.status(403).json({ message: "You have already accepted this request" });
                 }
 
@@ -219,6 +220,65 @@ export class FriendsService {
             });
 
             return res.status(200).json({ message: 'You have now accepted this user', acceptFriend });
+        } catch (error) {
+            return res.status(500).json({ message: error });
+        }
+    }
+
+    async friendRequests(req: Request, res: Response) {
+        try {
+            const { authToken } = req.cookies;
+            const loggedInUserToken = this.jwtService.verify(authToken, {
+                secret: process.env.JWT_SECRET,
+            });
+            const userId = loggedInUserToken.user.id;
+            const requests = await this.prisma.friends.findMany({
+                where: {
+                    AND: [
+                        {
+                            OR: [
+                                {
+                                    reqSenderId: userId,
+                                },
+                                {
+                                    reqReceiverId: userId,
+                                },
+                            ],
+                        },
+                        {
+                            status: "pending",
+                        },
+                    ]
+                },
+            });
+
+            const updateData = (arr: Array<Friends>, type: string) => arr.map((item) => {
+                let friendId, friendName;
+                if (type === 'sender') {
+                    friendId = item.reqReceiverId;
+                    friendName = item.reqReceiverName;
+                } else if (type === 'receiver') {
+                    friendId = item.reqSenderId;
+                    friendName = item.reqSenderName;
+                }
+                delete item.reqSenderId;
+                delete item.reqSenderName;
+                delete item.reqReceiverId;
+                delete item.reqReceiverName;
+                return {
+                    ...item,
+                    friendId,
+                    friendName,
+                };
+            });
+
+            const receivedRedquestsData = requests.filter((item) => item.reqReceiverId === userId);
+            const sentRequestsData = requests.filter((item) => item.reqSenderId === userId);
+
+            const receivedRedquests = updateData(receivedRedquestsData, 'receiver');
+            const sentRequests = updateData(sentRequestsData, 'sender');
+
+            return res.status(200).json({ receivedRedquests, sentRequests });
         } catch (error) {
             return res.status(500).json({ message: error });
         }

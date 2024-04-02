@@ -26,4 +26,9 @@ export class FriendsController {
   acceptFriend(@Body() body: accepFriendType, @Req() req: RequestEx, @Response() res: ResponseEx) {
     return this.friendsService.acceptFriend(req, res, body);
   }
+
+  @Get('requests')
+  friendRequests(@Req() req: RequestEx, @Response() res: ResponseEx) {
+    return this.friendsService.friendRequests(req, res);
+  }
 }
