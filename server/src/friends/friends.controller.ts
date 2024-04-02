@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Post, Req, Response } from '@nestjs/common';
 import { FriendsService } from './friends.service';
 import { Response as ResponseEx, Request as RequestEx } from 'express';
-import { friendRemoveType, friendType } from './interface';
+import { accepFriendType, friendRemoveType, friendType } from './interface';
 
 @Controller('friends')
 export class FriendsController {
@@ -20,5 +20,10 @@ export class FriendsController {
   @Delete('remove')
   removeFriend(@Body() body: friendRemoveType, @Req() req: RequestEx, @Response() res: ResponseEx) {
     return this.friendsService.remoeveFriend(req, res, body);
+  }
+
+  @Post('accept')
+  acceptFriend(@Body() body: accepFriendType, @Req() req: RequestEx, @Response() res: ResponseEx) {
+    return this.friendsService.acceptFriend(req, res, body);
   }
 }

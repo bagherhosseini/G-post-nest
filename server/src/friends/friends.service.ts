@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { friendRemoveType, friendType } from './interface';
+import { accepFriendType, friendRemoveType, friendType } from './interface';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 @Injectable()
@@ -74,8 +74,12 @@ export class FriendsService {
             const reqSenderId = loggedInUser.user.id;
             const reqSenderName = loggedInUser.user.name;
 
+            if(reqSenderId === body.id){
+                return res.status(403).json({ message: 'You cannot add yourself' });
+            }
+
             const reqReceiverId = body.id;
-            const reqReceiverName = body.name;
+            const reqReceiverName = (await this.prisma.user.findUnique({where:{id: reqReceiverId}})).name;
 
             const friends = await this.prisma.friends.findMany({
                 where: {
@@ -130,6 +134,10 @@ export class FriendsService {
             const userId = loggedInUser.user.id;
             const friendReqId = body.id;
 
+            if(userId === body.id){
+                return res.status(403).json({ message: 'You cannot remove yourself' });
+            }
+
             const friend = await this.prisma.friends.findMany({
                 where: {
                     OR: [
@@ -167,6 +175,52 @@ export class FriendsService {
             } else {
                 return res.status(500).json({ message: error });
             }
+        }
+    }
+
+    async acceptFriend(req: Request, res: Response, body: accepFriendType) {
+        try {
+            const { authToken } = req.cookies;
+            const loggedInUser = this.jwtService.verify(authToken, {
+                secret: process.env.JWT_SECRET,
+            });
+            const userId = loggedInUser.user.id;
+            const reqId = body.reqId;
+
+            const friendReqData = await this.prisma.friends.findFirst({
+                where: {
+                    id: reqId
+                },
+            });
+
+            if(!friendReqData){
+                return res.status(403).json({ message: "Friend request not found" });
+            }
+
+            if(friendReqData.reqReceiverId !== userId){
+                return res.status(403).json({ message: "You're not allowed to accept this request" });
+            }
+
+            if(friendReqData.status !== "pending"){
+                if(friendReqData.status === "success"){
+                    return res.status(403).json({ message: "You have already accepted this request" });
+                }
+
+                return res.status(403).json({ message: "You can not accept this request" });
+            }
+
+            const acceptFriend = await this.prisma.friends.update({
+                where: {
+                    id: reqId,
+                },
+                data: {
+                    status: "success",
+                },
+            });
+
+            return res.status(200).json({ message: 'You have now accepted this user', acceptFriend });
+        } catch (error) {
+            return res.status(500).json({ message: error });
         }
     }
 }

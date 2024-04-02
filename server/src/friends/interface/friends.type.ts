@@ -3,14 +3,16 @@ export class friendType {
   @IsString()
   @IsNotEmpty()
   id: string;
-
-  @IsString()
-  @IsNotEmpty()
-  name: string;
 }
 
 export class friendRemoveType {
   @IsString()
   @IsNotEmpty()
   id: string;
+}
+
+export class accepFriendType {
+  @IsString()
+  @IsNotEmpty()
+  reqId: string;
 }
