@@ -38,7 +38,16 @@ export class AuthService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          return res.status(403).json({ message: 'Email already exists' });
+          const userNameExist = await this.prisma.user.findFirst({
+            where: {
+              userName: body.userName,
+            },
+          });
+
+          if(userNameExist){
+            return res.status(403).json({ message: 'Username already exists', exist:'Username' });
+          }
+          return res.status(403).json({ message: 'Email already exists', exist:'Email'});
         }
       } else {
         return res.status(500).json({ message: error });
@@ -65,7 +74,7 @@ export class AuthService {
       delete user.password;
 
       const payload = { user };
-      const authToken = await this.jwtService.signAsync(payload, '1h');
+      const authToken = await this.jwtService.signAsync(payload, '5h');
 
       res.cookie('authToken', authToken, {
         maxAge: 3600000,
