@@ -13,7 +13,7 @@ export class FriendsService {
         private jwtService: JwtService,
     ) { }
 
-    async getMyFriends(res: Response, req: Request) {
+    async friends(res: Response, req: Request) {
         try {
             const { authToken } = req.cookies;
             const loggedInUserToken = this.jwtService.verify(authToken, {
@@ -40,7 +40,7 @@ export class FriendsService {
                 },
             });
 
-            const updatedData = myFriends.map((item) => {
+            const friends = myFriends.map((item) => {
                 let friendId, friendName;
                 if (item.reqSenderId === userId) {
                     friendId = item.reqReceiverId;
@@ -60,7 +60,7 @@ export class FriendsService {
                 };
             });
 
-            return res.status(200).json(updatedData);
+            return res.status(200).json(friends);
         } catch (error) {
             return res.status(500).json({ message: error });
         }
@@ -283,4 +283,6 @@ export class FriendsService {
             return res.status(500).json({ message: error });
         }
     }
+
+    
 }

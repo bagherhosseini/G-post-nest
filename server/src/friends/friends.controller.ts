@@ -9,7 +9,7 @@ export class FriendsController {
 
   @Get('')
   getMyFriends(@Response() res: ResponseEx, @Req() req: RequestEx) {
-    return this.friendsService.getMyFriends(res, req);
+    return this.friendsService.friends(res, req);
   }
 
   @Post('add')
