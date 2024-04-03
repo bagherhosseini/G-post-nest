@@ -17,7 +17,7 @@ export class signUpType {
   @IsString()
   @IsNotEmpty()
   userName: string;
-  
+
   @IsEmail()
   @IsNotEmpty()
   email: string;

@@ -8,10 +8,14 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Post('userInfo')
-  users(@Body() body: getUserType, @Response() res: ResponseEx, @Req() req: RequestEx) {
+  users(
+    @Body() body: getUserType,
+    @Response() res: ResponseEx,
+    @Req() req: RequestEx,
+  ) {
     return this.userService.users(body, res, req);
   }
-  
+
   @Get('myInfo')
   myInfo(@Response() res: ResponseEx, @Req() req: RequestEx) {
     return this.userService.myInfo(res, req);

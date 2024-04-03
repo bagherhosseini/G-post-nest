@@ -68,7 +68,7 @@ export class UserService {
           id: {
             not: loggedInUserToken.user.id,
           },
-          userName
+          userName,
         },
         select: {
           id: true,
@@ -77,7 +77,7 @@ export class UserService {
         },
       });
 
-      return res.status(200).json({user});
+      return res.status(200).json({ user });
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: error });

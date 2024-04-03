@@ -30,7 +30,11 @@ export class AuthService {
         },
       });
 
-      const payload = { sub: user.id, username: user.email, userName: user.userName};
+      const payload = {
+        sub: user.id,
+        username: user.email,
+        userName: user.userName,
+      };
       return res.status(200).json({
         access_token: await this.jwtService.signAsync(payload, '5h'),
         user,
@@ -44,10 +48,14 @@ export class AuthService {
             },
           });
 
-          if(userNameExist){
-            return res.status(403).json({ message: 'Username already exists', exist:'Username' });
+          if (userNameExist) {
+            return res
+              .status(403)
+              .json({ message: 'Username already exists', exist: 'Username' });
           }
-          return res.status(403).json({ message: 'Email already exists', exist:'Email'});
+          return res
+            .status(403)
+            .json({ message: 'Email already exists', exist: 'Email' });
         }
       } else {
         return res.status(500).json({ message: error });
