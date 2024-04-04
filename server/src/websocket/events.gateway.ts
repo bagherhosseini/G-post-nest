@@ -25,7 +25,7 @@ export class SocketGateway
   @WebSocketServer()
   server: Server;
 
-  private onlineUsers = new Map<number, string>();
+  private onlineUsers = new Map<string, string>();
 
   afterInit() {
     console.log('WebSocket server initialized');
@@ -44,7 +44,9 @@ export class SocketGateway
   }
 
   @SubscribeMessage('onlineUser')
-  handleOnlineUser(client: Socket, data: number) {
+  handleOnlineUser(client: Socket, data: string) {
+    console.log('User online:', data);
+    console.log('Client ID:', client.id);
     this.onlineUsers.set(data, client.id);
     // this.emitUserStatus(data, 'online');
     client.emit('loggedIn', data);

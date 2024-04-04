@@ -7,7 +7,7 @@ export class SocketDto {
 
   @IsNumber()
   @IsNotEmpty()
-  to: number;
+  to: string;
 
   @IsString()
   @IsNotEmpty()
