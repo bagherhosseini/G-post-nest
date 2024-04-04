@@ -8,7 +8,7 @@ import data from '@emoji-mart/data';
 import { myId, userId, messages, filePreviewURL } from '../../signals/signals'
 
 import { socket } from '../../../../services/lib/stocket';
-import { apiService } from '../../../../services/authentication/Auth'
+import { apiService } from '../../../../services'
 
 const messageInput = signal('');
 const file = signal(null);
