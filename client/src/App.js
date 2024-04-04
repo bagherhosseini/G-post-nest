@@ -16,7 +16,7 @@ function App() {
             <Route path="/" element={<Auth />} />
             <Route path="/home/*" element={<AuthenticatedRoute> <Home /> </AuthenticatedRoute>} />
             <Route path="/verifyEmail/:linkToken" element={<VerifyEmail />} />
-            <Route path="/chat/:userId" element={<ChatB />} />
+            <Route path="/chat/:friendId" element={<ChatB />} />
           </Routes>
         </main>
       </div>

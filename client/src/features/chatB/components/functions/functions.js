@@ -26,7 +26,7 @@ const generateRandomId = () => {
 export function socketListener() {
     // receiveMessage message
     socket.on('receiveMessage', (data) => {
-        userId.value = parseInt(data.from);
+        userId.value = data.from;
         messages.value = [
             ...messages.value,
             data,
@@ -35,7 +35,7 @@ export function socketListener() {
 
     socket.on('inCommingCall', (data) => {
         inCommingCall.value = true;
-        userId.value = parseInt(data.from);
+        userId.value = data.from;
         callerSignal.value = data.signal;
         isVideoCall.value = data.isVideoCall;
     });
@@ -66,7 +66,9 @@ export function socketListener() {
     });
 
     // giving users id and log them in
-    const randomId = generateRandomId();
+    const randomId = localStorage.getItem('id');
+
+    // const randomId = generateRandomId();
     myId.value = randomId;
 
     // Emit the generated random ID to the server as the 'onlineUser' event
@@ -77,7 +79,7 @@ export function socketListener() {
         myId.value = userIdFromServer;
     });
 
-    console.log('myId', myId.value);
+    // console.log('myId', myId.value);
 
     return () => {
         socket.off('loggedIn');
@@ -107,7 +109,7 @@ export async function call(isVideoCallPram) {
                 socket.emit("outGoingCall", {
                     from: myId.value,
                     name: "test",
-                    to: parseInt(userId.value),
+                    to: userId.value,
                     isVideoCall: isVideoCallPram,
                     signalData: data,
                 });

@@ -47,7 +47,7 @@ export default function InCommingCall() {
         if (data) {
           socket.emit("acceptCall", {
             from: myId.value,
-            to: parseInt(userId.value),
+            to: userId.value,
             name: 'test',
             signalData: data,
           });
@@ -73,7 +73,7 @@ export default function InCommingCall() {
     socket.emit('rejectCall', {
       from: myId.value,
       name: 'test',
-      to: parseInt(userId.value),
+      to: userId.value,
       isVideoCall: isVideoCall.value,
     });
 

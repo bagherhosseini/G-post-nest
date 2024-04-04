@@ -22,7 +22,7 @@ export default function OutGoingCall() {
     socket.emit('rejectCall', {
       from: myId.value,
       name: 'test',
-      to: parseInt(userId.value),
+      to: userId.value,
       isVideoCall: isVideoCall.value
     });
   };

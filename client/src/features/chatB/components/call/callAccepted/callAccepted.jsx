@@ -24,7 +24,7 @@ export default function CallAccepted() {
     const handleEndCall = () => {
         socket.emit('endCall', {
             from: myId.value,
-            to: parseInt(userId.value),
+            to: userId.value,
             name: 'test',
             isVideoCall: isVideoCall.value,
         });
