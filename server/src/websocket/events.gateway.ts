@@ -45,8 +45,6 @@ export class SocketGateway
 
   @SubscribeMessage('onlineUser')
   handleOnlineUser(client: Socket, data: string) {
-    console.log('User online:', data);
-    console.log('Client ID:', client.id);
     this.onlineUsers.set(data, client.id);
     // this.emitUserStatus(data, 'online');
     client.emit('loggedIn', data);
@@ -54,6 +52,7 @@ export class SocketGateway
 
   @SubscribeMessage('userStatus')
   handleUserStatus(client: Socket, data: any) {
+    console.log(data);
     const userStatus = this.onlineUsers.get(data.userId);
     if (userStatus) {
       client.emit('userStatus', {

@@ -19,10 +19,6 @@ import {
 
 const socket = io(process.env.REACT_APP_SOCKET_URL);
 
-const generateRandomId = () => {
-    return Math.floor(Math.random() * 1000000);
-};
-
 export function socketListener() {
     // receiveMessage message
     socket.on('receiveMessage', (data) => {
@@ -65,21 +61,14 @@ export function socketListener() {
         window.location.reload();
     });
 
-    // giving users id and log them in
-    const randomId = localStorage.getItem('id');
+    const id = localStorage.getItem('id');
+    myId.value = id;
 
-    // const randomId = generateRandomId();
-    myId.value = randomId;
+    socket.emit('onlineUser', id);
 
-    // Emit the generated random ID to the server as the 'onlineUser' event
-    socket.emit('onlineUser', randomId);
-
-    // Listen for the 'loggedIn' event from the server, which will send the user ID back to the client
     socket.on('loggedIn', (userIdFromServer) => {
         myId.value = userIdFromServer;
     });
-
-    // console.log('myId', myId.value);
 
     return () => {
         socket.off('loggedIn');
