@@ -20,3 +20,6 @@ export const isVideoCall = signal(false);
 export const userStatus = signal('offline');
 
 export const activePeers = signal([]);
+
+//contact signals
+export const contacts = signal([]);
