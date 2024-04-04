@@ -26,11 +26,6 @@ export default function SendMessage() {
         }
     });
 
-    const handleUserIdChange = (e) => {
-        userId.value = e.target.value;
-        socket.emit('userStatus', { userId: parseInt(userId.value) });
-    }
-
     const handleFileInputChange = (e) => {
         const fileSelected = e.target.files[0];
         if (fileSelected) {
@@ -67,7 +62,7 @@ export default function SendMessage() {
                 socket.emit('sendMessage', {
                     from: myId.value,
                     name: 'test',
-                    to: parseInt(userId.value),
+                    to: userId.value,
                     message: resData.file,
                     type: 'file',
                 });
@@ -86,7 +81,7 @@ export default function SendMessage() {
                 socket.emit('sendMessage', {
                     from: myId,
                     name: 'test',
-                    to: parseInt(userId),
+                    to: userId,
                     message: messageInput.value,
                     type: 'text',
                 });
@@ -113,13 +108,6 @@ export default function SendMessage() {
 
     return (
         <form onSubmit={handleSendMessage} className='sendMessage'>
-            <input
-                type="text"
-                value={userId.value}
-                onChange={(e) => handleUserIdChange(e)}
-                placeholder="Type recipient's ID..."
-                required
-            />
             <input
                 type="text"
                 value={messageInput.value}
