@@ -9,10 +9,14 @@ import {
     call
 } from '../../features/chatB/index.jsx'
 import { socket } from '../../services/lib/stocket.js';
-import { userStatus } from '../../features/chatB/signals/signals.jsx';
+import { userId, userStatus } from '../../features/chatB/signals/signals.jsx';
 
 const ChatB = () => {
-    const { idPram } = useParams();
+    const { friendId } = useParams("userId");
+
+    if (friendId) {
+        userId.value = friendId;
+    }
 
     useSignalEffect(() => {
         socketListener();
