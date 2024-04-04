@@ -8,7 +8,7 @@ import data from '@emoji-mart/data';
 import { myId, userId, messages, filePreviewURL } from '../../signals/signals'
 
 import { socket } from '../../../../services/lib/stocket';
-import { authApiService } from '../../../../services/authentication/Auth'
+import { apiService } from '../../../../services/authentication/Auth'
 
 const messageInput = signal('');
 const file = signal(null);
@@ -61,7 +61,7 @@ export default function SendMessage() {
                 formData.append('file', file.value);
                 formData.append('usersData', JSON.stringify({ from: myId, to: userId }));
 
-                const res = await authApiService.sendMessage(formData); // Assuming you have authApiService defined.
+                const res = await apiService.sendMessage(formData);
                 const resData = await res.data;
 
                 socket.emit('sendMessage', {

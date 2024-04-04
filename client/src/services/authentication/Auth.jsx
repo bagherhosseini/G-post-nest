@@ -57,15 +57,6 @@ export const authApiService = {
     return response;
   },
 
-  getMyInfo: async () => {
-    const response = await axiosClient
-      .get("/user/myInfo")
-      .then((response) => {
-        return response;
-      });
-    return response;
-  },
-
   signOut: () => {
     axiosClient.defaults.headers = {
       Authorization: undefined,
@@ -80,6 +71,17 @@ export const authApiService = {
       console.error("Error:", error);
       throw error;
     }
+  },
+};
+
+export const apiService = {
+  getMyInfo: async () => {
+    const response = await axiosClient
+      .get("/user/myInfo")
+      .then((response) => {
+        return response;
+      });
+    return response;
   },
 
   sendMessage: async (data) => {
