@@ -11,7 +11,7 @@ import Cookies from 'js-cookie';
 //         }
 //     });
 // }
-const accessToken = Cookies.get("authToken");
+// const accessToken = Cookies.get("authToken");
 
 export const API_URL = process.env.REACT_APP_API_URL;
 
@@ -20,11 +20,18 @@ const axiosClient = axios.create({
   withCredentials: true,
 });
 
-if(accessToken) {
-  axiosClient.defaults.headers.common[
-    "Authorization"
-  ] = `Bearer ${accessToken}`;
-}
+axiosClient.interceptors.request.use(
+  (config) => {
+    const accessToken = Cookies.get("authToken");
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export const authApiService = {
   googleAuth: async (userInfo) => {
