@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 // export default function googleAuth(userInfo) {
 //     return fetch('http://localhost:5050/auth/google', {
@@ -10,6 +11,7 @@ import axios from 'axios';
 //         }
 //     });
 // }
+const accessToken = Cookies.get("authToken");
 
 export const API_URL = process.env.REACT_APP_API_URL;
 
@@ -17,6 +19,12 @@ const axiosClient = axios.create({
   baseURL: API_URL,
   withCredentials: true,
 });
+
+if(accessToken) {
+  axiosClient.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${accessToken}`;
+}
 
 export const authApiService = {
   googleAuth: async (userInfo) => {
@@ -75,9 +83,9 @@ export const authApiService = {
 };
 
 export const apiService = {
-  getMyInfo: async () => {
+  getMyFriends: async () => {
     const response = await axiosClient
-      .get("/user/myInfo")
+      .get("/friends")
       .then((response) => {
         return response;
       });
@@ -97,6 +105,16 @@ export const apiService = {
   generateToken: async (userId) => {
     try {
       const response = await axiosClient.post('/chat/token', { userId });
+      return response;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  },
+
+  getMyInfo: async () => {
+    try {
+      const response = await axiosClient.get('/user/myInfo');
       return response;
     } catch (error) {
       console.error("Error:", error);
