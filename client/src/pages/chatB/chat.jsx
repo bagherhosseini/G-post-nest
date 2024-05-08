@@ -16,6 +16,7 @@ const ChatB = () => {
 
     if (friendId) {
         userId.value = friendId;
+        socket.emit('userStatus', { userId: friendId });
     }
 
     useSignalEffect(() => {
