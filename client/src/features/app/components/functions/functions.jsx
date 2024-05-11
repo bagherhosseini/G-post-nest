@@ -18,7 +18,7 @@ export default function CheckAuth() {
         localStorage.setItem("id", myInfo.data.user.id);
 
         if(doNavigate){
-          navigate("/home");
+          navigate("/chat/friends");
         }
       }else{
         console.log("Error: ", myInfo);
@@ -35,7 +35,7 @@ export default function CheckAuth() {
       if(id === "undefined" || id === undefined || id === null || id === "" || id === '' || id === "null"){
         getMyInfo(true);
       }else{
-        navigate("/home");
+        navigate("/chat/friends");
       }
     }else if(authToken){
       if(id === "undefined" || id === undefined || id === null || id === "" || id === '' || id === "null"){

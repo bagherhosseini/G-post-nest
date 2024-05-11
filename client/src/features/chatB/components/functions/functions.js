@@ -1,4 +1,3 @@
-import io from 'socket.io-client';
 import Peer from 'simple-peer';
 
 import { stopCam } from '../call/stopCam/stopCam.js';
@@ -15,21 +14,26 @@ import {
     myStream,
     isVideoCall,
     activePeers,
+    myName,
+    callerName,
 } from '../../signals/signals';
 
-const socket = io(process.env.REACT_APP_SOCKET_URL);
+import { socket } from '../../../../services/lib/stocket.js';
+import { apiService } from '../../../../services/index.jsx';
 
 export function socketListener() {
     // receiveMessage message
     socket.on('receiveMessage', (data) => {
-        userId.value = data.from;
-        messages.value = [
-            ...messages.value,
-            data,
-        ];
+        if(data.from === userId.value){
+            messages.value = [
+                ...messages.value,
+                data,
+            ];
+        }
     });
 
     socket.on('inCommingCall', (data) => {
+        callerName.value = data.name;
         inCommingCall.value = true;
         userId.value = data.from;
         callerSignal.value = data.signal;
@@ -97,14 +101,12 @@ export async function call(isVideoCallPram) {
                 console.log('outGoingCall in signal');
                 socket.emit("outGoingCall", {
                     from: myId.value,
-                    name: "test",
+                    name: myName.value,
                     to: userId.value,
                     isVideoCall: isVideoCallPram,
                     signalData: data,
                 });
-                console.log('outGoingCall after socket');
             });
-
 
             peer.on("stream", (stream) => {
                 userStream.value = stream;
@@ -120,6 +122,12 @@ export async function call(isVideoCallPram) {
                 callAccepted.value = true;
                 peer.signal(data.signal);
             });
+
+            if (isVideoCallPram) {
+                await apiService.sendMessage(userId, 'videoCall', 'videoCall');
+            }else{
+                await apiService.sendMessage(userId, 'voiceCall', 'voiceCall');
+            }
 
         } else {
             alert('Please Enter Recipient ID call');

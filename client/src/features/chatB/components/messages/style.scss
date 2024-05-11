@@ -1,0 +1,56 @@
+.sendMessage{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    height: fit-content;
+    padding-bottom: 20px;
+    padding: 0 20px 20px 20px;
+
+    & input {
+        color: black;
+        background-color: #eee;
+        border: none;
+        padding: 8px 10px;
+        width: 100%;
+        border-radius: 6px;
+        outline: transparent;
+        font-size: 0.8em;
+    }
+
+    & #messageFileInput{
+        display: none;
+    }
+
+    & .messageFileLabel{
+        cursor: pointer;
+
+        & .icon{
+            font-size: 25px;
+        }
+    }
+
+    & .sendMessageBTN{
+        font-size: 20px;
+    }
+
+    & button{
+        height: 20px;
+    }
+
+    & .emojiPanelBtn{
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        outline: transparent;
+    }
+
+    & .pickerPanel{
+        position: absolute;
+        bottom:70px;
+        right: 20px;
+        z-index: 10;
+    }
+    
+}

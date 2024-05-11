@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { FriendsService } from './friends.service';
 import { Response as ResponseEx, Request as RequestEx } from 'express';
-import { accepFriendType, friendRemoveType, friendType } from './interface';
+import { accepFriendType, friendAddType, friendRemoveType } from './interface';
 
 @Controller('friends')
 export class FriendsController {
@@ -23,7 +23,7 @@ export class FriendsController {
 
   @Post('add')
   addFriend(
-    @Body() body: friendType,
+    @Body() body: friendAddType,
     @Req() req: RequestEx,
     @Response() res: ResponseEx,
   ) {

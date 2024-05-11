@@ -1,0 +1,107 @@
+.contactsContainer{
+    width: 300px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    margin-right: 10px;
+    background-color: #242836;
+
+    .contactsHeader{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 60px;
+        font-size: 20px;
+        font-weight: 500;
+        border: 1px solid rgba(0, 0, 0, 0.445);
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding: 0 20px;
+    
+        & .contactsHeaderCon{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    
+        & h1{
+            padding: 0 !important;
+            margin: 0;
+            font-size: 0.8em;
+            font-weight: 100;
+        }
+    
+        & .link{
+            color: white;
+            text-decoration: none;
+            border: 1px solid rgba(0, 0, 0, 0.445);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding: 5px 5px;
+            
+            & svg{
+                height: 15px;
+                width: 15px;
+            }
+        }
+    }
+
+    .sideMenuLink{
+        // padding: 0 15px;
+        margin-bottom: 20px;
+
+        & .link{
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 15px 15px;
+            font-size: 0.9em;
+            display: flex;
+            gap: 10px;
+            
+            & svg{
+                height: 20px;
+                width: 20px;
+            }
+        }
+        & .link.active{
+            background: hsla(249, 17%, 8%, 0.50);
+            color: white;
+        }
+    }
+
+    & .contacts{
+        display: flex;
+        flex-direction: column;
+        
+        & .contact{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            align-items: center;
+            padding: 10px 10px;
+            text-decoration: none;
+            color: hsla(0, 0%, 100%, 0.50);
+
+            &:hover{
+                color: white;
+                background: hsla(249, 17%, 8%, 0.30);
+            }
+
+            & img{
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+            }
+        }
+
+        & .contact.active{
+            background: hsla(249, 17%, 8%, 0.50);
+            color: white;
+        }
+    }
+}

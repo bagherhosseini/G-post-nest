@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { accepFriendType, friendRemoveType, friendType } from './interface';
+import { accepFriendType, friendAddType, friendRemoveType } from './interface';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { Friends } from '@prisma/client';
 
@@ -71,7 +71,7 @@ export class FriendsService {
     }
   }
 
-  async addFriend(req: Request, res: Response, body: friendType) {
+  async addFriend(req: Request, res: Response, body: friendAddType) {
     try {
       const { authToken } = req.cookies;
       const loggedInUser = this.jwtService.verify(authToken, {
@@ -81,11 +81,26 @@ export class FriendsService {
       const reqSenderName = loggedInUser.user.name;
       const reqSenderUserName = loggedInUser.user.userName;
 
-      if (reqSenderId === body.id) {
+      const reqReceiverUsername = body.friendUserName;
+
+      const receiverData = await this.prisma.user.findFirst({
+        where: {
+          userName: reqReceiverUsername,
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      if (!receiverData) {
+        return res.status(403).json({ message: 'User not found' });
+      }
+
+      if (reqSenderId === receiverData.id) {
         return res.status(403).json({ message: 'You cannot add yourself' });
       }
 
-      const reqReceiverId = body.id;
+      const reqReceiverId = receiverData.id;
       const reqReceiverData = await this.prisma.user.findFirst({
         where: {
           id: reqReceiverId,
@@ -164,7 +179,6 @@ export class FriendsService {
       });
       const userId = loggedInUser.user.id;
       const friendReqId = body.id;
-
       if (userId === body.id) {
         return res.status(403).json({ message: 'You cannot remove yourself' });
       }
@@ -173,11 +187,11 @@ export class FriendsService {
         where: {
           OR: [
             {
-              id: friendReqId,
               reqSenderId: userId,
+              reqReceiverId: friendReqId,
             },
             {
-              id: friendReqId,
+              reqSenderId: friendReqId,
               reqReceiverId: userId,
             },
           ],
@@ -190,9 +204,10 @@ export class FriendsService {
           .json({ message: "You're not friend with this user" });
       }
 
+      const friendData = friend[0].id;
       const removeFriend = await this.prisma.friends.delete({
         where: {
-          id: friendReqId,
+          id: friendData,
         },
       });
 
@@ -200,6 +215,7 @@ export class FriendsService {
         .status(200)
         .json({ message: 'You have now removed this user', removeFriend });
     } catch (error) {
+      console.log(error)
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
           return res
@@ -329,10 +345,10 @@ export class FriendsService {
         (item) => item.reqSenderId === userId,
       );
 
-      const receivedRedquests = updateData(receivedRedquestsData, 'receiver');
+      const receivedRequests = updateData(receivedRedquestsData, 'receiver');
       const sentRequests = updateData(sentRequestsData, 'sender');
 
-      return res.status(200).json({ receivedRedquests, sentRequests });
+      return res.status(200).json({ receivedRequests, sentRequests, requests });
     } catch (error) {
       return res.status(500).json({ message: error });
     }

@@ -11,8 +11,12 @@ import {
   userStream,
   myStream,
   myId,
-  isVideoCall
+  isVideoCall,
+  friendName,
+  myName,
+  callerName
 } from '../../../signals/signals';
+import ProfilePic from '../../profilePic/profilePic';
 
 export default function OutGoingCall() {
   const handleOutGoingCall = () => {
@@ -21,7 +25,7 @@ export default function OutGoingCall() {
     ;
     socket.emit('rejectCall', {
       from: myId.value,
-      name: 'test',
+      name: myName.value,
       to: userId.value,
       isVideoCall: isVideoCall.value
     });
@@ -30,11 +34,10 @@ export default function OutGoingCall() {
   return (
     <section className='outGoingVoiceCall'>
       <div className='nameContainer'>
-        <h1>Name</h1>
-        <p>Calling</p>
+        {callerName.value ? <h1>{callerName.value}</h1> : <h1>{friendName.value}</h1>}
       </div>
-      <div className='imgContainer'>
-        <img className='profilePic' src="https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png" alt="" />
+      <div className='imgContainerCall'>
+        <ProfilePic username={friendName.value} />
       </div>
       <button className='endCallBtn' onClick={handleOutGoingCall}><FontAwesomeIcon icon={faPhoneSlash} /></button>
     </section>

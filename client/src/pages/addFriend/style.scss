@@ -1,0 +1,45 @@
+.addFriendSection{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+    width: 100%;
+    background-color: #242836;
+    border-radius: 8px;
+
+    & h1{
+        padding: 0 !important;
+        margin: 0;
+        font-weight: 100;
+    }
+
+    form{
+        width: 100%;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        & input{
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            outline: transparent;
+            border: transparent;
+            color: black;
+        }
+
+        & button{
+            min-width: 180px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            background-color: #7289da;
+            color: white;
+            font-weight: 100;
+            cursor: pointer;
+        }
+    }
+}

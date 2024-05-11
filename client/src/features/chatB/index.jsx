@@ -18,3 +18,5 @@ export { default as ChatHeader } from './components/call/chatHeader/chatHeader';
 export { default as OutGoingCall } from './components/call/outGoingCall/outGoingCall';
 export { default as InCommingCall } from './components/call/inCommingCall/inCommingCall';
 export { default as CallAccepted } from './components/call/callAccepted/callAccepted';
+
+export { default as ProfilePic } from './components/profilePic/profilePic';

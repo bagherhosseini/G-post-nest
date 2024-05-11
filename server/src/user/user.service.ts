@@ -48,7 +48,7 @@ export class UserService {
 
   async users(body: getUserType, res: Response, req: Request) {
     try {
-      const { userName } = body;
+      const { id } = body;
       const { authToken } = req.cookies;
 
       const loggedInUserToken = this.jwtService.verify(authToken, {
@@ -63,12 +63,9 @@ export class UserService {
         return res.status(401).json({ message: 'Token not found' });
       }
 
-      const user = await this.prisma.user.findMany({
+      const user = await this.prisma.user.findFirst({
         where: {
-          id: {
-            not: loggedInUserToken.user.id,
-          },
-          userName,
+          id
         },
         select: {
           id: true,
@@ -76,7 +73,6 @@ export class UserService {
           userName: true,
         },
       });
-
       return res.status(200).json({ user });
     } catch (error) {
       console.log(error);

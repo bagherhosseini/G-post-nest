@@ -1,14 +1,17 @@
 import React, { useRef } from 'react'
 import { signal, useSignalEffect } from '@preact/signals-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFaceSmile, faL } from '@fortawesome/free-solid-svg-icons';
+import { faFaceSmile } from '@fortawesome/free-solid-svg-icons';
+import { IoPaperPlane } from "react-icons/io5";
+import { HiPlusCircle } from "react-icons/hi";
 import Picker from '@emoji-mart/react';
 import data from '@emoji-mart/data';
 
-import { myId, userId, messages, filePreviewURL } from '../../signals/signals'
+import { myId, userId, messages, filePreviewURL, myName } from '../../signals/signals'
 
+import './style.scss';
 import { socket } from '../../../../services/lib/stocket';
-import { apiService } from '../../../../services'
+import { apiService } from '../../../../services';
 
 const messageInput = signal('');
 const file = signal(null);
@@ -47,7 +50,7 @@ export default function SendMessage() {
     const handleEmojiSelect = (emoji) => {
         messageInput.value = messageInput.value + emoji.native;
     };
-
+    
     const handleSendMessage = async (e) => {
         e.preventDefault();
         try {
@@ -56,12 +59,12 @@ export default function SendMessage() {
                 formData.append('file', file.value);
                 formData.append('usersData', JSON.stringify({ from: myId, to: userId }));
 
-                const res = await apiService.sendMessage(formData);
+                const res = await apiService.sendFile(formData);
                 const resData = await res.data;
 
                 socket.emit('sendMessage', {
                     from: myId.value,
-                    name: 'test',
+                    name: myName.value,
                     to: userId.value,
                     message: resData.file,
                     type: 'file',
@@ -70,8 +73,10 @@ export default function SendMessage() {
                 // Show the sent message in the chat window
                 messages.value = [
                     ...messages.value,
-                    { from: 'You', message: resData.file, type: 'file' },
+                    { from: myName.value, message: resData.file, type: 'file' },
                 ];
+                
+                await apiService.sendMessage(userId, resData.file, 'file');
 
                 messageInput.value = '';
                 showEmojiPicker.value = false;
@@ -80,7 +85,7 @@ export default function SendMessage() {
             if (messageInput.value.trim() !== '' && messageInput.value !== null && userId.value.toString().trim() !== '' && userId !== null) {
                 socket.emit('sendMessage', {
                     from: myId,
-                    name: 'test',
+                    name: myName.value,
                     to: userId,
                     message: messageInput.value,
                     type: 'text',
@@ -92,6 +97,8 @@ export default function SendMessage() {
                     { from: 'You', message: messageInput.value, type: 'text' },
                 ];
 
+                await apiService.sendMessage(userId, messageInput.value, 'text');
+        
                 messageInput.value = '';
                 showEmojiPicker.value = false;
             }
@@ -108,19 +115,24 @@ export default function SendMessage() {
 
     return (
         <form onSubmit={handleSendMessage} className='sendMessage'>
+            <label htmlFor="messageFileInput" className='messageFileLabel'>
+                <HiPlusCircle className='icon'/>
+                
+                <input
+                    id='messageFileInput'
+                    style={{ 'color': 'black' }}
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileInputChange}
+                    accept=".jpg, .jpeg, .png"
+                />
+            </label>
+
             <input
                 type="text"
                 value={messageInput.value}
                 onChange={(e) => messageInput.value = e.target.value}
                 placeholder="Type your message..."
-            />
-
-            <input
-                style={{ 'color': 'black' }}
-                type="file"
-                ref={fileInputRef}
-                onChange={handleFileInputChange}
-                accept=".jpg, .jpeg, .png, .gif, .pdf, .doc, .docx, .txt"
             />
 
             <button className='emojiPanelBtn' type="button" onClick={() => showEmojiPicker.value = !showEmojiPicker.value}>
@@ -138,7 +150,7 @@ export default function SendMessage() {
                     />
                 </div>
             )}
-            <button type="submit" disabled={!isFormValid.value}>Send</button>
+            <button type="submit" disabled={!isFormValid.value} className='sendMessageBTN'><IoPaperPlane /></button>
         </form>
     );
 }

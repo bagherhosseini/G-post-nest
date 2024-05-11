@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import SendMessage from '../../features/chatB/components/messages/sendMessage';
 
 // export default function googleAuth(userInfo) {
 //     return fetch('http://localhost:5050/auth/google', {
@@ -99,9 +100,49 @@ export const apiService = {
     return response;
   },
 
-  sendMessage: async (data) => {
+  getMyInfo: async () => {
     try {
-      const response = await axiosClient.post('/chat/send', data);
+      const response = await axiosClient.get('/user/myInfo');
+      return response;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  },
+
+  getUserInfo: async (id) => {
+    try {
+      const response = await axiosClient.post('/user/userInfo', { id });
+      return response;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  },
+
+  getMessages: async (friendId) => {
+    try {
+      const response = await axiosClient.post('/chat/messages', { friendId });
+      return response;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  },
+
+  sendFile: async (data) => {
+    try {
+      const response = await axiosClient.post('/chat/file', data);
+      return response;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  },
+
+  sendMessage: async (receiverId, messageText, messageType) => {
+    try {
+      const response = await axiosClient.post('/chat/message', { receiverId, messageText, messageType });
       return response;
     } catch (error) {
       console.error("Error:", error);
@@ -119,9 +160,39 @@ export const apiService = {
     }
   },
 
-  getMyInfo: async () => {
+  addFriend: async (friendUserName) => {
     try {
-      const response = await axiosClient.get('/user/myInfo');
+      const response = await axiosClient.post('/friends/add', { friendUserName });
+      return response;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  },
+
+  removeFriend: async (friendId) => {
+    try {
+      const response = await axiosClient.delete('/friends/remove', { data: { id: friendId } });
+      return response;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  },
+
+  friendRequests: async (friendId) => {
+    try {
+      const response = await axiosClient.get('/friends/requests');
+      return response;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  },
+
+  acceptFriend: async (reqId) => {
+    try {
+      const response = await axiosClient.patch('/friends/accept', { reqId });
       return response;
     } catch (error) {
       console.error("Error:", error);

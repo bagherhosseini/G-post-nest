@@ -18,6 +18,9 @@ import {
   isVideoCall,
   myId,
   activePeers,
+  myName,
+  callerName,
+  friendName,
 } from '../../../signals/signals';
 
 export default function InCommingCall() {
@@ -48,7 +51,7 @@ export default function InCommingCall() {
           socket.emit("acceptCall", {
             from: myId.value,
             to: userId.value,
-            name: 'test',
+            name: myName.value,
             signalData: data,
           });
         }
@@ -72,7 +75,7 @@ export default function InCommingCall() {
     inCommingCall.value = false;
     socket.emit('rejectCall', {
       from: myId.value,
-      name: 'test',
+      name: myName.value,
       to: userId.value,
       isVideoCall: isVideoCall.value,
     });
@@ -93,7 +96,7 @@ export default function InCommingCall() {
         </div>
 
         <div className='nameContainer'>
-          <p className='name'>Name</p>
+          {callerName.value ? <p className='name'>{callerName.value}</p> : <h1>{friendName.value}</h1>}
           <p>Incomming Call...</p>
         </div>
       </div>

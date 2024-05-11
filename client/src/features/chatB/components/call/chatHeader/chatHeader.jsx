@@ -25,8 +25,6 @@ export default function ChatHeader({handleCall}) {
 
     return (
         <header>
-            <p>Name</p>
-            <span className='userStatus' style={{backgroundColor: userStatus.value === 'online' ? 'green': 'red'}} />
             <div className='call'>
                 <button onClick={ ()=>{handleCall(false)} }>
                     <FontAwesomeIcon icon={faPhoneVolume} />

@@ -1,33 +1,24 @@
-import React from 'react'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 
 import {
-  Messages,
-  ChatHeader,
   ContactList,
-  OutGoingCall as OutGoingCallUI,
-  InCommingCall as InCommingCallUI,
-  CallAccepted as CallAcceptedUI,
 } from '../../index';
 
-import { 
-  outGoingCall,
-  inCommingCall,
-  callAccepted
-} from '../../signals/signals';
+import { AddFriend, Friends, FriendReqs } from '../../../../pages';
+import Chat from '../chat/chat';
 
-export default function PageContent({handleCall}) {
+export default function PageContent({ handleCall }) {
 
   return (
     <section className='content'>
       <ContactList />
-      <div className='messageContainer'>
-        <ChatHeader handleCall={handleCall}/>
-        <Messages />
-
-        {outGoingCall.value && <OutGoingCallUI />}
-        {inCommingCall.value && <InCommingCallUI />}
-        {callAccepted.value && <CallAcceptedUI />} 
-      </div>
+      <Routes>
+        <Route path="/:id" element={<Chat handleCall={handleCall} />} />
+        <Route path="/add" element={<AddFriend />} />
+        <Route path="/friends" element={<Friends />} />
+        <Route path="/friendreqs" element={<FriendReqs />} />
+      </Routes>
     </section>
   )
 }

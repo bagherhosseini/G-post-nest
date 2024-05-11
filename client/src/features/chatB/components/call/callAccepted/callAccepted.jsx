@@ -15,6 +15,9 @@ import {
     isVideoCall,
     myId,
     activePeers,
+    friendName,
+    myName,
+    callerName,
 } from '../../../signals/signals';
 
 export default function CallAccepted() {
@@ -25,7 +28,7 @@ export default function CallAccepted() {
         socket.emit('endCall', {
             from: myId.value,
             to: userId.value,
-            name: 'test',
+            name: myName.value,
             isVideoCall: isVideoCall.value,
         });
         callAccepted.value = false;
@@ -55,7 +58,7 @@ export default function CallAccepted() {
     return (
         <section className='outGoingVoiceCall'>
             <div className='nameContainer'>
-                <p>Talking to Name</p>
+                {callerName.value ? <h1>{callerName.value}</h1> : <h1>{friendName.value}</h1>}
             </div>
 
             {isVideoCall.value ? (
@@ -63,37 +66,21 @@ export default function CallAccepted() {
                     {myStreamRef && (
                         <video
                             id='userVideo'
-                            className="rounded-full"
+                            className="myVideo"
                             ref={myStreamRef}
                             autoPlay
                             muted
                             playsInline
-                            style={{
-                                width: '300px',
-                                position: 'absolute',
-                                top: '300px',
-                                left: '0',
-                                zIndex: '10000',
-                                backgroundColor: 'blue',
-                            }}
                         />
                     )}
 
                     {userStreamRef && (
                         <video
                             id='userVideo'
-                            className="rounded-full"
+                            className="userVideo"
                             ref={userStreamRef}
                             autoPlay
                             playsInline
-                            style={{
-                                width: '300px',
-                                position: 'absolute',
-                                top: '300px',
-                                right: '0',
-                                zIndex: '10000',
-                                backgroundColor: 'red',
-                            }}
                         />
                     )}
                 </div>

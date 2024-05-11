@@ -23,7 +23,7 @@ export default function Login() {
             const response = await authApiService.signIn(email, password);
             if (response.status === 200) {
                 localStorage.setItem("id", response.data.user.id);
-                navigate("/home/");
+                navigate("/chat/friends");
             }else{
                 setError(false);
                 setMessage(response.data.message)

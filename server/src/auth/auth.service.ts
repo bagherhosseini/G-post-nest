@@ -89,7 +89,7 @@ export class AuthService {
         sameSite: 'none',
         secure: true,
         httpOnly: false,
-        domain: '.bagher.dev',
+        // domain: '.bagher.dev',
       });
 
       return res.status(200).json({

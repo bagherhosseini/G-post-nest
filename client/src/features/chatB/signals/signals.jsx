@@ -1,5 +1,8 @@
 import { signal } from '@preact/signals-react';
 
+export const myName = signal(null);
+export const friendName = signal(null);
+
 //id signals
 export const myId = signal(null);
 export const userId = signal('');
@@ -18,8 +21,11 @@ export const callAccepted = signal(false);
 export const callerSignal = signal(null);
 export const isVideoCall = signal(false);
 export const userStatus = signal('offline');
+export const callerName = signal(null);
 
 export const activePeers = signal([]);
 
 //contact signals
 export const contacts = signal([]);
+export const firstContact = signal();
+export const updateContacts = signal(false);

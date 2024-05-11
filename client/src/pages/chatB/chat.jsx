@@ -23,7 +23,7 @@ const ChatB = () => {
         socketListener();
     });
 
-    const handleVideoCall = async (isVideoCallPram) => {
+    const handleCall = async (isVideoCallPram) => {
         call(isVideoCallPram);
     }
 
@@ -35,7 +35,7 @@ const ChatB = () => {
 
     return (
         <div className='chat'>
-            <PageContent handleCall={handleVideoCall} />
+            <PageContent handleCall={handleCall} />
         </div>
     )
 };

@@ -5,6 +5,12 @@ export class friendType {
   id: string;
 }
 
+export class friendAddType {
+  @IsString()
+  @IsNotEmpty()
+  friendUserName: string;
+}
+
 export class friendRemoveType {
   @IsString()
   @IsNotEmpty()

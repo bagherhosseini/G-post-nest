@@ -1,0 +1,17 @@
+.profilePicture{
+    background-color: rgb(29, 29, 29);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+
+    & span{
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10px;
+    }
+}

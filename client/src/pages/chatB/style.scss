@@ -26,50 +26,6 @@
 
         & h1{
             margin: 0;
-            padding-left: 20px;
-        }
-
-        & .contactsContainer{
-            width: 300px;
-            height: 100%;
-            padding: 20px 10px;
-            display: flex;
-            gap: 30px;
-            flex-direction: column;
-
-            & .contacts{
-                display: flex;
-                gap: 10px;
-                flex-direction: column;
-                
-                & .contact{
-                    width: 100%;
-                    display: flex;
-                    flex-direction: row;
-                    gap: 20px;
-                    align-items: center;
-                    border-radius: 4px;
-                    padding: 10px 10px;
-                    text-decoration: none;
-                    color: hsla(0, 0%, 100%, 0.50);
-
-                    &:hover{
-                        color: white;
-                        background: hsla(249, 17%, 8%, 0.30);
-                    }
-
-                    & img{
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 50%;
-                    }
-                }
-
-                & .contact.active{
-                    background: hsla(249, 17%, 8%, 0.50);
-                    color: white;
-                }
-            }
         }
     
         & .messageContainer{
@@ -89,8 +45,9 @@
                 border-bottom: 0.1px solid rgba(0, 0, 0, 0.30);
                 padding: 10px 20px;
                 display: flex;
-                flex-direction: row;
+                flex-direction: row-reverse;
                 justify-content: space-between;
+                background-color: #242836;
 
                 & .userStatus{
                     height: 20px;
@@ -120,10 +77,28 @@
                 flex-direction: column;
                 padding: 10px 20px;
 
+                &::-webkit-scrollbar {
+                    width: 10px;
+                }
+                
+                &::-webkit-scrollbar-thumb {
+                background: white;
+                border-radius: 3px;
+                }
+
                 & .messageInfo{
                     display: flex;
                     gap: 15px;
                     width: 100%;
+
+                    & .callText{
+                        width: 100%;
+                        font-size: 0.9em;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 5px;
+                    }
                    
                     & .NameMsg{
                         display: flex;
@@ -165,44 +140,6 @@
                     }
                 }
             }
-
-            & .sendMessage{
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                gap: 10px;
-                height: fit-content;
-                padding-bottom: 20px;
-                padding: 0 20px 20px 20px;
-
-                & input {
-                    background-color: #eee;
-                    border: none;
-                    padding: 12px 15px;
-                    width: 100%;
-                    border-radius: 10px;
-                    outline: transparent;
-                }
-
-                & button{
-                    height: 20px;
-                }
-
-                & .emojiPanelBtn{
-                    background: none;
-                    border: none;
-                    color: white;
-                    cursor: pointer;
-                    outline: transparent;
-                }
-
-                & .pickerPanel{
-                    position: absolute;
-                    bottom:70px;
-                    right: 20px;
-                    z-index: 10;
-                }
-            }
         }
     }
 
@@ -236,11 +173,17 @@
         align-items: center;
         flex-direction: column;
         gap: 10px;
+
         & .nameContainer{
             display: flex;
             flex-direction: column;
             gap: 2px;
             align-items: center;
+
+            & h1{
+                padding: 0 !important;
+                margin: 0 !important;
+            }
     
             & .name{
                 font-size: 1rem;
@@ -297,7 +240,9 @@
 }
 
 .outGoingVoiceCall{
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 100;
     width: 100%;
     min-height: 100vh;
@@ -311,22 +256,52 @@
     overflow: auto;
 
     & .nameContainer{
+        color: white;
+        position: absolute;
+        z-index: 10;
+        top: 50px;
         display: flex;
         flex-direction: column;
         gap: 10px;
         align-items: center;
-
-        & h1{
-            margin: 0;
-            font-size: 2rem;
-            font-weight: 100;
-        }
+        font-size: 3em;
+        font-weight: 100;
     }
 
+    & .video{
+        width: 100%;
+        height: 100%;
+    }
 
-    & .imgContainer{
+    & .userVideo{
+        position: absolute;
+        height: calc(100% - 50px);
+        aspect-ratio: 16/9;
+        border-radius: 8px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+    }
+
+    & .myVideo{
+        position: absolute;
+        height: 150px;
+        top: 30px;
+        left: 30px;
+        z-index: 1;
+        border-radius: 8px;
+    }
+
+    & .imgContainerCall{
         max-height: 300px;
         height: 100%;
+
+        & .profilePicture{
+            height: 250px;
+            width: 250px;
+            font-size: 10em;
+        }
 
         & .profilePic{
             max-height: 300px;
@@ -337,6 +312,9 @@
 
 
     & .endCallBtn{
+        position: absolute;
+        z-index: 10;
+        bottom: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
