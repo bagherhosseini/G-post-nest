@@ -18,6 +18,7 @@ async function bootstrap() {
     allowedHeaders: [
       'Access-Control-Allow-Origin',
       'Content-Type',
+      'Authorization',
     ],
   });
   app.useGlobalPipes(
