@@ -26,8 +26,9 @@ export default function Register() {
                 return;
             }
             const response = await authApiService.signUp(userName, name, userEmail, password);
-            if (response.status === 201) {
-                toast.success(response.data.message,
+            if (response.status === 200) {
+                console.log(response)
+                toast.success('Registration successful 🚀',
                     {
                       style: {
                         borderRadius: '10px',
@@ -36,7 +37,7 @@ export default function Register() {
                       },
                     }
                 );
-                setMessage('registration successful 🚀');
+                setMessage('Registration successful 🚀');
                 setError(true);
             }else{
                 setError(false);
@@ -109,7 +110,7 @@ export default function Register() {
                 </label>
 
                 <label htmlFor="password" className="userInfoLabel">
-                    <input type="password" id="password" className="userInfo" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Min 3 charaters long" autoComplete="current-password" required minlength="5"/>
+                    <input type="password" id="password" className="userInfo" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" required minLength="5"/>
                 </label>
 
                 <div className="rowContainer">

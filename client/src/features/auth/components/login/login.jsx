@@ -46,7 +46,7 @@ export default function Login() {
                 </label>
 
                 <label htmlFor="passwordLogin" className="userInfoLabel">
-                    <input type="password" id="passwordLogin" className="userInfo" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" required minlength="5"/>
+                    <input type="password" id="passwordLogin" className="userInfo" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" required minLength="5"/>
                 </label>
 
                 <button type="submit">Sign In</button>

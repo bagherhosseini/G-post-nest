@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { signInType, signUpType } from './interface';
@@ -20,7 +21,7 @@ export class AuthService {
           name: body.name,
           userName: body.userName,
           email: body.email,
-          password: body.password,
+          password: await bcrypt.hash(body.password, 10),
         },
         select: {
           id: true,
@@ -75,7 +76,9 @@ export class AuthService {
         return res.status(401).json({ message: 'Invalid credentials' });
       }
 
-      if (user.password !== body.password) {
+      const isPasswordValid = await bcrypt.compare(body.password, user.password);
+
+      if (!isPasswordValid) {
         return res.status(401).json({ message: 'Invalid credentials' });
       }
 
