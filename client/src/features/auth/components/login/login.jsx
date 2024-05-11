@@ -42,23 +42,14 @@ export default function Login() {
                 <h1>Sign In</h1>
 
                 <label htmlFor="emailLogin" className="userInfoLabel">
-                    <input id="emailLogin" className="userInfo" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" autoComplete="current-email" />
+                    <input id="emailLogin" className="userInfo" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" autoComplete="current-email" required/>
                 </label>
 
                 <label htmlFor="passwordLogin" className="userInfoLabel">
-                    <input type="password" id="passwordLogin" className="userInfo" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Min 3 charaters long" autoComplete="current-password"/>
+                    <input type="password" id="passwordLogin" className="userInfo" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" required minlength="5"/>
                 </label>
 
                 <button type="submit">Sign In</button>
-                <GoogleAuth BtnText = {"Sign in with Google 🚀"}></GoogleAuth>
-                
-                {!error ? 
-                    <div className="error">
-                        <p>{message}</p>
-                    </div>
-                :
-                    <></>
-                }
             </form>
         </div>
     );

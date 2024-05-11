@@ -19,11 +19,13 @@ import { Response as ResponseEx } from 'express';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @Public()
   @Post('signUp')
   signUp(@Body() body: signUpType, @Response() res: ResponseEx) {
     return this.authService.signUp(body, res);
   }
 
+  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('signIn')
   async signIn(@Body() body: signInType, @Response() res: ResponseEx) {

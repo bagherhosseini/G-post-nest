@@ -49,9 +49,9 @@ export const authApiService = {
     }
   },
 
-  signUp: async (name, email, password) => {
+  signUp: async (name, userName, email, password) => {
     const response = await axiosClient
-      .post("/auth/signUp", { name, email, password })
+      .post("/auth/signUp", { name, userName, email, password })
       .then((response) => {
         return response;
       });
