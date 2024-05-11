@@ -96,7 +96,7 @@ export class AuthService {
       });
 
       return res.status(200).json({
-        access_token: await this.jwtService.signAsync(payload, '1h'),
+        access_token: await this.jwtService.signAsync(payload, '1d'),
         user,
       });
     } catch (error) {

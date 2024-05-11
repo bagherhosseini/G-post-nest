@@ -11,10 +11,10 @@ async function bootstrap() {
   app.use(cookieParser(process.env.JWT_SECRET));
   app.set('trust proxy', 1);
   app.enableCors({
-    origin: [process.env.CLIENT_URL],
+    origin: [process.env.CLIENT_URL, 'https://client.bagher.dev/', 'https://client.bagher.dev'],
     credentials: true,
     exposedHeaders: ['Set-Cookie'],
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: [
       'Access-Control-Allow-Origin',
       'Content-Type',
