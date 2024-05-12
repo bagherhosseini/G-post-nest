@@ -155,6 +155,7 @@ export class FriendsService {
         .status(200)
         .json({ message: 'You have now added this user', user });
     } catch (error) {
+      console.error(error);
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
           return res
@@ -165,7 +166,6 @@ export class FriendsService {
           return res.status(500).json({ message: 'Something went wrong' });
         }
       } else {
-        console.log(error);
         return res.status(500).json({ message: error });
       }
     }
@@ -215,7 +215,7 @@ export class FriendsService {
         .status(200)
         .json({ message: 'You have now removed this user', removeFriend });
     } catch (error) {
-      console.log(error)
+      console.error(error)
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
           return res

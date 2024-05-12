@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhoneSlash, faPhoneVolume } from '@fortawesome/free-solid-svg-icons';
 import Peer from 'simple-peer';
+import { toast } from 'react-toastify';
 
 import { stopCam } from '../stopCam/stopCam';
 import { socket } from '../../../../../services/lib/stocket';
@@ -67,7 +68,15 @@ export default function InCommingCall() {
         peer,
       ];
     } catch (err) {
-      console.log(err);
+      toast.error(err,
+        {
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+        }
+      );
     }
   };
 

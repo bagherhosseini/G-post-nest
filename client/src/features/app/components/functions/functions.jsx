@@ -14,14 +14,12 @@ export default function CheckAuth() {
       const myInfo = await apiService.getMyInfo();
 
       if(myInfo.data){
-        console.log("Success: ", myInfo);
         localStorage.setItem("id", myInfo.data.user.id);
 
         if(doNavigate){
           navigate("/chat/friends");
         }
       }else{
-        console.log("Error: ", myInfo);
         Cookies.remove('authToken');
         localStorage.removeItem("id");
         navigate("/");

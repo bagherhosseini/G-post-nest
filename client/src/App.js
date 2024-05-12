@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { VerifyEmail, ChatB, Auth } from './pages/index';
 import { UserProvider } from './context/userInfoContext';
@@ -5,23 +6,42 @@ import './style/app.scss';
 import { ToastContainer as Toaster } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CheckAuth } from './features/app';
-import { 
+import Cookies from "js-cookie";
+import {
   socketListener,
   OutGoingCall as OutGoingCallUI,
   InCommingCall as InCommingCallUI,
   CallAccepted as CallAcceptedUI,
-} 
-from './features/chatB';
+}
+  from './features/chatB';
 
 import {
   outGoingCall,
   inCommingCall,
   callAccepted,
+  myName,
 } from './features/chatB/signals/signals';
+import { apiService } from './services';
 
 function App() {
+  const authToken = Cookies.get('authToken');
   CheckAuth();
   socketListener();
+
+  useEffect(() => {
+    async function getMyInfo() {
+      if(authToken){
+        const info = await apiService.getMyInfo();
+  
+        if (info.status === 200) {
+          myName.value = info.data.user.userName;
+        }
+      }
+    }
+
+    getMyInfo();
+  }, []);
+  
   return (
     <UserProvider>
       <div>

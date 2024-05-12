@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    position: relative;
 
     & h1{
         margin: 0;
@@ -16,6 +17,16 @@
     & .friendsList{
         display: flex;
         flex-direction: column;
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            background: white;
+            border-radius: 3px;
+        }
 
         & .friend{
             display: flex;
@@ -37,6 +48,15 @@
                 border-radius: 5px;
                 cursor: pointer;
             }
+        }
+
+        & .noFriend{
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: 50%;
+            left: 0;
+            transform: translate(0, -50%);
         }
     }
 }

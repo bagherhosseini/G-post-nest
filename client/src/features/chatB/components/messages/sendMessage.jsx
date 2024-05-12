@@ -6,6 +6,7 @@ import { IoPaperPlane } from "react-icons/io5";
 import { HiPlusCircle } from "react-icons/hi";
 import Picker from '@emoji-mart/react';
 import data from '@emoji-mart/data';
+import { toast } from 'react-toastify';
 
 import { myId, userId, messages, filePreviewURL, myName } from '../../signals/signals'
 
@@ -50,7 +51,7 @@ export default function SendMessage() {
     const handleEmojiSelect = (emoji) => {
         messageInput.value = messageInput.value + emoji.native;
     };
-    
+
     const handleSendMessage = async (e) => {
         e.preventDefault();
         try {
@@ -75,7 +76,7 @@ export default function SendMessage() {
                     ...messages.value,
                     { from: myName.value, message: resData.file, type: 'file' },
                 ];
-                
+
                 await apiService.sendMessage(userId, resData.file, 'file');
 
                 messageInput.value = '';
@@ -98,7 +99,7 @@ export default function SendMessage() {
                 ];
 
                 await apiService.sendMessage(userId, messageInput.value, 'text');
-        
+
                 messageInput.value = '';
                 showEmojiPicker.value = false;
             }
@@ -109,15 +110,23 @@ export default function SendMessage() {
             filePreviewURL.value = '';
             file.value = null;
         } catch (err) {
-            console.log(err);
+            toast.error('Something went wrong, please try again',
+                {
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                    },
+                }
+            );
         }
     }
 
     return (
         <form onSubmit={handleSendMessage} className='sendMessage'>
             <label htmlFor="messageFileInput" className='messageFileLabel'>
-                <HiPlusCircle className='icon'/>
-                
+                <HiPlusCircle className='icon' />
+
                 <input
                     id='messageFileInput'
                     style={{ 'color': 'black' }}

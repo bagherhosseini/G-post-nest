@@ -1,18 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import SendMessage from '../../features/chatB/components/messages/sendMessage';
-
-// export default function googleAuth(userInfo) {
-//     return fetch('http://localhost:5050/auth/google', {
-//         method: 'POST',
-//         body: JSON.stringify({ userInfo }),
-//         credentials: "include",
-//         headers: {
-//         'Content-Type': 'application/json'
-//         }
-//     });
-// }
-// const accessToken = Cookies.get("authToken");
+import { useNavigate } from "react-router-dom";
 
 export const API_URL = process.env.REACT_APP_API_URL;
 
@@ -34,6 +22,11 @@ axiosClient.interceptors.request.use(
   }
 );
 
+function redirectToLogin() {
+  Cookies.remove('authToken');
+  window.location.href = '/';
+}
+
 export const authApiService = {
   googleAuth: async (userInfo) => {
     try {
@@ -44,7 +37,6 @@ export const authApiService = {
       };
       return response;
     } catch (error) {
-      console.error("Error:", error);
       throw error;
     }
   },
@@ -74,6 +66,7 @@ export const authApiService = {
   },
 
   signOut: () => {
+    redirectToLogin();
     axiosClient.defaults.headers = {
       Authorization: undefined,
     };
@@ -84,7 +77,6 @@ export const authApiService = {
       const response = await axiosClient.post('/auth/verifyEmail', { linkToken });
       return response;
     } catch (error) {
-      console.error("Error:", error);
       throw error;
     }
   },
@@ -92,12 +84,19 @@ export const authApiService = {
 
 export const apiService = {
   getMyFriends: async () => {
-    const response = await axiosClient
-      .get("/friends")
-      .then((response) => {
-        return response;
-      });
-    return response;
+    try {
+      const response = await axiosClient
+        .get("/friends")
+        .then((response) => {
+          return response;
+        });
+      return response;
+    } catch (error) {
+      if(error.response.status === 401) {
+        redirectToLogin();
+      }
+      throw error;
+    }
   },
 
   getMyInfo: async () => {
@@ -105,7 +104,9 @@ export const apiService = {
       const response = await axiosClient.get('/user/myInfo');
       return response;
     } catch (error) {
-      console.error("Error:", error);
+      if(error.response.status === 401) {
+        redirectToLogin();
+      }
       throw error;
     }
   },
@@ -115,7 +116,9 @@ export const apiService = {
       const response = await axiosClient.post('/user/userInfo', { id });
       return response;
     } catch (error) {
-      console.error("Error:", error);
+      if(error.response.status === 401) {
+        redirectToLogin();
+      }
       throw error;
     }
   },
@@ -125,7 +128,9 @@ export const apiService = {
       const response = await axiosClient.post('/chat/messages', { friendId });
       return response;
     } catch (error) {
-      console.error("Error:", error);
+      if(error.response.status === 401) {
+        redirectToLogin();
+      }
       throw error;
     }
   },
@@ -135,7 +140,9 @@ export const apiService = {
       const response = await axiosClient.post('/chat/file', data);
       return response;
     } catch (error) {
-      console.error("Error:", error);
+      if(error.response.status === 401) {
+        redirectToLogin();
+      }
       throw error;
     }
   },
@@ -145,7 +152,9 @@ export const apiService = {
       const response = await axiosClient.post('/chat/message', { receiverId, messageText, messageType });
       return response;
     } catch (error) {
-      console.error("Error:", error);
+      if(error.response.status === 401) {
+        redirectToLogin();
+      }
       throw error;
     }
   },
@@ -155,7 +164,9 @@ export const apiService = {
       const response = await axiosClient.post('/chat/token', { userId });
       return response;
     } catch (error) {
-      console.error("Error:", error);
+      if(error.response.status === 401) {
+        redirectToLogin();
+      }
       throw error;
     }
   },
@@ -165,7 +176,9 @@ export const apiService = {
       const response = await axiosClient.post('/friends/add', { friendUserName });
       return response;
     } catch (error) {
-      console.error("Error:", error);
+      if(error.response.status === 401) {
+        redirectToLogin();
+      }
       throw error;
     }
   },
@@ -175,7 +188,9 @@ export const apiService = {
       const response = await axiosClient.delete('/friends/remove', { data: { id: friendId } });
       return response;
     } catch (error) {
-      console.error("Error:", error);
+      if(error.response.status === 401) {
+        redirectToLogin();
+      }
       throw error;
     }
   },
@@ -185,7 +200,9 @@ export const apiService = {
       const response = await axiosClient.get('/friends/requests');
       return response;
     } catch (error) {
-      console.error("Error:", error);
+      if(error.response.status === 401) {
+        redirectToLogin();
+      }
       throw error;
     }
   },
@@ -195,7 +212,9 @@ export const apiService = {
       const response = await axiosClient.patch('/friends/accept', { reqId });
       return response;
     } catch (error) {
-      console.error("Error:", error);
+      if(error.response.status === 401) {
+        redirectToLogin();
+      }
       throw error;
     }
   },

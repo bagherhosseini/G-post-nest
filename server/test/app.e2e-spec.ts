@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing';
 import { AppModule } from './../src/app.module';
 
 import * as pactum from 'pactum';
-import { AuthType } from 'src/auth/interface';
+import { signInType } from 'src/auth/interface';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -31,9 +31,9 @@ describe('AppController (e2e)', () => {
   });
 
   describe('Auth', () => {
-    const dto: AuthType = {
+    const dto: signInType = {
       email: 'test@test.com',
-      password: '123',
+      password: '12345',
     };
 
     describe('signIn', () => {

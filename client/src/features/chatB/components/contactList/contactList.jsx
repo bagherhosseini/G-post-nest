@@ -1,11 +1,13 @@
-import React, { useEffect, useLayoutEffect } from 'react';
-import { NavLink, Link } from "react-router-dom";
+import React, { useLayoutEffect } from 'react';
+import { NavLink } from "react-router-dom";
 import { useSignalEffect } from '@preact/signals-react';
 import { FaUserFriends } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
+import { toast } from 'react-toastify';
 
 import { socket } from '../../../../services/lib/stocket.js';
-import { apiService } from '../../../../services';
-import { contacts, updateContacts } from '../../signals/signals';
+import { authApiService, apiService } from '../../../../services';
+import { contacts, myName, updateContacts } from '../../signals/signals';
 import './style.scss';
 import ProfilePic from '../profilePic/profilePic.jsx';
 
@@ -29,7 +31,15 @@ function GetFriendsWithStatus() {
         contacts.value = response.data;
         updateContacts.value = false;
       } catch (error) {
-        console.error("Error:", error);
+        toast.error('Something went wrong, please try again',
+          {
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
       }
     };
 
@@ -37,8 +47,24 @@ function GetFriendsWithStatus() {
   }, [updateContacts.value]);
 }
 
-const ContactList = () => {
+export default function ContactList() {
   GetFriendsWithStatus();
+
+  const Logout = async () => {
+    try {
+      authApiService.signOut();
+    } catch (error) {
+      toast.error('Something went wrong, please try again',
+        {
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+        }
+      );
+    }
+  }
 
   return (
     <aside className='contactsContainer'>
@@ -74,8 +100,14 @@ const ContactList = () => {
           ))
         }
       </div>
+
+      <div className='profile'>
+        <div className='myInfo'>
+          <ProfilePic username={myName.value} />
+          <span>{myName.value}</span>
+        </div>
+        <button onClick={() => Logout()}><MdLogout /></button>
+      </div>
     </aside>
   );
 };
-
-export default ContactList;

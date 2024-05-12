@@ -21,7 +21,6 @@ export default function AddFriend() {
         }
       );
     } catch (error) {
-      console.error(error.response.data.message);
       toast.error(error.response.data.message,
         {
           style: {

@@ -25,18 +25,6 @@ export default function Chat({handleCall}) {
     userId.value = id;
 
     useEffect(() => {
-        async function getMyInfo() {
-            const info = await apiService.getMyInfo();
-            
-            if(info.status === 200){
-                myName.value = info.data.user.userName;
-            }
-        }
-
-        getMyInfo();
-    }, []);
-
-    useEffect(() => {
         async function getFriendInfo() {
             if(id){
                 const friendInfo = await apiService.getUserInfo(id);

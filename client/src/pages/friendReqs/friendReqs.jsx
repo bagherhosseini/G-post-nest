@@ -25,7 +25,6 @@ export default function FriendReqs() {
                         },
                     }
                 );
-                console.error(error);
             }
         }
         fetchFriends();
@@ -69,14 +68,12 @@ export default function FriendReqs() {
                     color: '#fff',
                 },
             });
-            console.error(error);
         }
     };
 
-    const handleAcceptFriend = async (friendId, id) => {
+    const handleAcceptFriend = async (id) => {
         try {
             const response = await apiService.acceptFriend(id);
-            console.log(response);
             if (response && response.status === 200) {
                 updateContacts.value = true;
                 const updatedFriends = friendReqs.receivedRequests.filter(friend => friend.id !== id);
@@ -96,15 +93,13 @@ export default function FriendReqs() {
                 });
             }
         } catch (error) {
-            console.log(error)
-            // toast.error(error.response.message, {
-            //     style: {
-            //         borderRadius: '10px',
-            //         background: '#333',
-            //         color: '#fff',
-            //     },
-            // });
-            // console.error(error);
+            toast.error(error.response.message, {
+                style: {
+                    borderRadius: '10px',
+                    background: '#333',
+                    color: '#fff',
+                },
+            });
         }
     };
 
@@ -129,11 +124,15 @@ export default function FriendReqs() {
                             <p>{friend.friendUserName}</p>
                         </div>
                         <div className='action'>
-                            <button className='acceptFriend' onClick={() => handleAcceptFriend(friend.friendId, friend.id,)}><FaCheck /></button>
+                            <button className='acceptFriend' onClick={() => handleAcceptFriend(friend.id,)}><FaCheck /></button>
                             <button className='removeFriend' onClick={() => handleRemoveFriend(friend.friendId, friend.id, true)}><FaTrash /></button>
                         </div>
                     </div>
                 ))}
+
+                {friendReqs.sentRequests && !friendReqs.sentRequests.length && friendReqs.receivedRequests && !friendReqs.receivedRequests.length && (
+                    <p className='noFriend'>No friend requests</p>
+                )}
             </div>
         </section>
     )

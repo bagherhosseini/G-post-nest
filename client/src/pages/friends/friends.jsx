@@ -25,7 +25,6 @@ export default function Friends() {
             },
           }
         );
-        console.error(error);
       }
     }
     fetchFriends();
@@ -58,7 +57,6 @@ export default function Friends() {
           },
         }
       );
-      console.error(error);
     }
   }
 
@@ -75,6 +73,10 @@ export default function Friends() {
             <button className='removeFriend' onClick={()=> handleRemoveFriend(friend.friendId, friend.id)}><FaTrash /></button>
           </div>
         ))}
+
+        {!friends.length && (
+          <p className='noFriend'>You don't have any friends yet</p>
+        )}
       </div>
     </section>
   )

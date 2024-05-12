@@ -27,7 +27,6 @@ export default function Register() {
             }
             const response = await authApiService.signUp(userName, name, userEmail, password);
             if (response.status === 200) {
-                console.log(response)
                 toast.success('Registration successful 🚀',
                     {
                       style: {

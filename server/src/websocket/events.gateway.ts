@@ -60,26 +60,6 @@ export class SocketGateway
     }
   }
 
-  // private emitUserStatus(userId: number, status: string) {
-  //   this.server.emit('userStatus', {
-  //     userId,
-  //     status,
-  //   });
-  // }
-
-  // private updateUserStatus(socketId: string, status: string) {
-  //   let userId: number | undefined;
-  //   this.onlineUsers.forEach((value, key) => {
-  //     if (value === socketId) {
-  //       userId = key;
-  //       this.onlineUsers.delete(key);
-  //     }
-  //   });
-  //   if (userId) {
-  //     this.emitUserStatus(userId, status);
-  //   }
-  // }
-
   @SubscribeMessage('sendMessage')
   handleSendMessage(client: Socket, data: SocketDto) {
     const toSocketId = this.onlineUsers.get(data.to);

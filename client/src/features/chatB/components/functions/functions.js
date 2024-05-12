@@ -1,4 +1,5 @@
 import Peer from 'simple-peer';
+import { toast } from 'react-toastify';
 
 import { stopCam } from '../call/stopCam/stopCam.js';
 
@@ -98,7 +99,6 @@ export async function call(isVideoCallPram) {
             });
 
             peer.on("signal", (data) => {
-                console.log('outGoingCall in signal');
                 socket.emit("outGoingCall", {
                     from: myId.value,
                     name: myName.value,
@@ -133,6 +133,14 @@ export async function call(isVideoCallPram) {
             alert('Please Enter Recipient ID call');
         }
     } catch (err) {
-        console.log(err);
+        toast.error('Something went wrong, please try again',
+        {
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+        }
+      );
     }
 }

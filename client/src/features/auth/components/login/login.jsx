@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleAuth } from "../../index";
 import { authApiService } from "../../../../services/index";
+import { myName } from "../../../chatB/signals/signals";
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -23,6 +24,7 @@ export default function Login() {
             const response = await authApiService.signIn(email, password);
             if (response.status === 200) {
                 localStorage.setItem("id", response.data.user.id);
+                myName.value = response.data.user.userName;
                 navigate("/chat/friends");
             }else{
                 setError(false);
