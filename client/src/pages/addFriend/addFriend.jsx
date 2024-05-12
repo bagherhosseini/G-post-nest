@@ -32,12 +32,12 @@ export default function AddFriend() {
       );
     }
   };
-  
+
   return (
     <section className='addFriendSection'>
       <h1>Add friend</h1>
       <p>Enter your friend's username to send a friend request</p>
-      <form onSubmit={(e)=> handleAddFriend(e)}>
+      <form onSubmit={(e) => handleAddFriend(e)}>
         <input
           type="text"
           placeholder="Enter friend's username"

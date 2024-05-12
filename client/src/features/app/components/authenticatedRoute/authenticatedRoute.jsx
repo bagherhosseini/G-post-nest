@@ -5,7 +5,7 @@ export default function AuthenticatedRoute({ children }) {
     const authToken = Cookies.get("authToken");
     return (
         <>
-        <p>{authToken}</p>
+            <p>{authToken}</p>
             {
                 authToken === "undefined" || authToken === undefined || authToken === null || authToken === "" ? (
                     <p style={{

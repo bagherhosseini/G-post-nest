@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { FaTrash, FaCheck } from "react-icons/fa";
 
@@ -83,7 +83,7 @@ export default function FriendReqs() {
                         receivedRequests: updatedFriends,
                     }),
                 );
-             
+
                 toast.success(response.data.message, {
                     style: {
                         borderRadius: '10px',

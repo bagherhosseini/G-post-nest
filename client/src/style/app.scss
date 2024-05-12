@@ -3,26 +3,26 @@
 @tailwind utilities;
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
-*{
+
+* {
     box-sizing: border-box !important;
 }
 
-html{
+html {
     -webkit-font-smoothing: antialiased;
 }
 
-html, body
-{
+html,
+body {
     height: 100%;
     margin: 0;
 }
 
-.loadingHtml{
+.loadingHtml {
     // display: none;
 }
 
-body
-{
+body {
     position: relative;
     min-height: 100%;
     font-family: "Inter", sans-serif;

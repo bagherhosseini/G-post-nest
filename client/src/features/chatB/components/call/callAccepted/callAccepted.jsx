@@ -1,11 +1,9 @@
 import React, { useLayoutEffect, useRef } from 'react'
-import { useSignalEffect } from '@preact/signals-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhoneSlash } from '@fortawesome/free-solid-svg-icons';
 
 import { stopCam } from '../stopCam/stopCam';
 import { socket } from '../../../../../services/lib/stocket';
-import UsersVideo from './usersVideo';
 
 import {
     userId,
@@ -14,7 +12,6 @@ import {
     myStream,
     isVideoCall,
     myId,
-    activePeers,
     friendName,
     myName,
     callerName,
@@ -43,7 +40,7 @@ export default function CallAccepted() {
             myStream.value = null;
             myStreamRef.current = null;
         }
-        
+
         // activePeers.value[0].destroy();
         window.location.reload();
     }

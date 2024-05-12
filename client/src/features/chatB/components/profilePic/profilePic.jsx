@@ -12,7 +12,7 @@ export default function ProfilePic({ username }) {
     const secondInitial = words[1] ? words[1][0] : '';
     return `${firstInitial}${secondInitial}`;
   }
-  
+
   return (
     <div className="profilePicture">
       <span>{getInitials(username)}</span>

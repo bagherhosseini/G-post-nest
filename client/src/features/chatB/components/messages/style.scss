@@ -1,4 +1,4 @@
-.sendMessage{
+.sendMessage {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -18,27 +18,27 @@
         font-size: 0.8em;
     }
 
-    & #messageFileInput{
+    & #messageFileInput {
         display: none;
     }
 
-    & .messageFileLabel{
+    & .messageFileLabel {
         cursor: pointer;
 
-        & .icon{
+        & .icon {
             font-size: 25px;
         }
     }
 
-    & .sendMessageBTN{
+    & .sendMessageBTN {
         font-size: 20px;
     }
 
-    & button{
+    & button {
         height: 20px;
     }
 
-    & .emojiPanelBtn{
+    & .emojiPanelBtn {
         background: none;
         border: none;
         color: white;
@@ -46,11 +46,11 @@
         outline: transparent;
     }
 
-    & .pickerPanel{
+    & .pickerPanel {
         position: absolute;
-        bottom:70px;
+        bottom: 70px;
         right: 20px;
         z-index: 10;
     }
-    
+
 }

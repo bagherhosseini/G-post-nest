@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GoogleAuth } from "../../index";
 import { authApiService } from "../../../../services/index";
 import { myName } from "../../../chatB/signals/signals";
+import { toast } from 'react-toastify';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
-    const [error, setError] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -17,8 +15,15 @@ export default function Login() {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             const isValid = emailRegex.test(email);
             if (!isValid) {
-                setError(false);
-                setMessage("Please enter a valid email address");
+                toast.error('Please enter a valid email address',
+                    {
+                        style: {
+                            borderRadius: '10px',
+                            background: '#333',
+                            color: '#fff',
+                        },
+                    }
+                );
                 return;
             }
             const response = await authApiService.signIn(email, password);
@@ -26,14 +31,28 @@ export default function Login() {
                 localStorage.setItem("id", response.data.user.id);
                 myName.value = response.data.user.userName;
                 navigate("/chat/friends");
-            }else{
-                setError(false);
-                setMessage(response.data.message)
+            } else {
+                toast.error(response.data.message,
+                    {
+                        style: {
+                            borderRadius: '10px',
+                            background: '#333',
+                            color: '#fff',
+                        },
+                    }
+                );
             }
             return;
         } catch (error) {
-            setError(false);
-            setMessage(error.response.data.message)
+            toast.error(error.response.data.message,
+                {
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                    },
+                }
+            );
             return;
         }
     };
@@ -44,11 +63,11 @@ export default function Login() {
                 <h1>Sign In</h1>
 
                 <label htmlFor="emailLogin" className="userInfoLabel">
-                    <input id="emailLogin" className="userInfo" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" autoComplete="current-email" required/>
+                    <input id="emailLogin" className="userInfo" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" autoComplete="current-email" required />
                 </label>
 
                 <label htmlFor="passwordLogin" className="userInfoLabel">
-                    <input type="password" id="passwordLogin" className="userInfo" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" required minLength="5"/>
+                    <input type="password" id="passwordLogin" className="userInfo" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" required minLength="5" />
                 </label>
 
                 <button type="submit">Sign In</button>

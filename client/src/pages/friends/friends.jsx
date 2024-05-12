@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { FaTrash } from "react-icons/fa";
 
@@ -29,7 +29,7 @@ export default function Friends() {
     }
     fetchFriends();
   }, [])
-  
+
   const handleRemoveFriend = async (friendId, id) => {
     try {
       const response = await apiService.removeFriend(friendId);
@@ -70,7 +70,7 @@ export default function Friends() {
               <ProfilePic username={friend.friendUserName} />
               <p>{friend.friendUserName}</p>
             </div>
-            <button className='removeFriend' onClick={()=> handleRemoveFriend(friend.friendId, friend.id)}><FaTrash /></button>
+            <button className='removeFriend' onClick={() => handleRemoveFriend(friend.friendId, friend.id)}><FaTrash /></button>
           </div>
         ))}
 

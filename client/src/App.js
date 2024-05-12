@@ -20,7 +20,6 @@ import {
   inCommingCall,
   callAccepted,
   myName,
-  messages,
 } from './features/chatB/signals/signals';
 import { apiService } from './services';
 import { useSignalEffect } from '@preact/signals-react';
@@ -28,16 +27,16 @@ import { useSignalEffect } from '@preact/signals-react';
 function App() {
   const authToken = Cookies.get('authToken');
   CheckAuth();
-  
+
   useSignalEffect(() => {
     socketListener();
   });
 
   useEffect(() => {
     async function getMyInfo() {
-      if(authToken){
+      if (authToken) {
         const info = await apiService.getMyInfo();
-  
+
         if (info.status === 200) {
           myName.value = info.data.user.userName;
         }
@@ -46,7 +45,7 @@ function App() {
 
     getMyInfo();
   }, []);
-  
+
   return (
     <UserProvider>
       <div>

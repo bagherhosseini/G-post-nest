@@ -9,7 +9,7 @@ export { default as ContactList } from './components/contactList/contactList';
 
 //funciton
 export {
-    socketListener, 
+    socketListener,
     call
 } from './components/functions/functions.js';
 

@@ -7,7 +7,7 @@ export default function Overlay({ onSignUpClick, onSignInClick }) {
         <div className="overlay-container">
             <div className="overlay">
                 <div className="overlay-panel overlay-left">
-                <img src={login} alt="" />
+                    <img src={login} alt="" />
                     <h1>Welcome to G-Post!</h1>
                     <p>
                         To connect with your friends please sign in
@@ -17,7 +17,7 @@ export default function Overlay({ onSignUpClick, onSignInClick }) {
                     </button>
                 </div>
                 <div className="overlay-panel overlay-right">
-                <img className='rightImg' src={register} alt="" />
+                    <img className='rightImg' src={register} alt="" />
                     <h1>Welcome to G-Post!</h1>
                     <p>
                         Create your account and start your journey with us

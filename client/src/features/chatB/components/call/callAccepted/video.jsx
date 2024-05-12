@@ -15,8 +15,8 @@ export default function VideoCam({ videoRef, muted }) {
             width: '300px',
             position: 'absolute',
             top: '300px',
-            right: muted ? '0' : '300px', // Adjust the position based on muted status
-            left: muted ? '0' : '300px', // Adjust the position based on muted status
+            right: muted ? '0' : '300px',
+            left: muted ? '0' : '300px',
             zIndex: '10000',
             backgroundColor: muted ? 'red' : 'blue',
           }}

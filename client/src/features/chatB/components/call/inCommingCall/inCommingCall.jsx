@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhoneSlash, faPhoneVolume } from '@fortawesome/free-solid-svg-icons';
 import Peer from 'simple-peer';
@@ -9,7 +9,6 @@ import { socket } from '../../../../../services/lib/stocket';
 
 import {
   userId,
-  outGoingCall,
   myStream,
   stream,
   inCommingCall,
@@ -25,7 +24,6 @@ import {
 } from '../../../signals/signals';
 
 export default function InCommingCall() {
-  // const activePeers = useRef();
   const setupWebcam = async () => {
     if (myStream.value) {
       stopCam(myStream.value);

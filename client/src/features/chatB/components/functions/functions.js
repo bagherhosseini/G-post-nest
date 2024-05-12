@@ -25,7 +25,7 @@ import { apiService } from '../../../../services/index.jsx';
 export function socketListener() {
     // receiveMessage message
     socket.on('receiveMessage', (data) => {
-        if(data.from === userId.value){
+        if (data.from === userId.value) {
             messages.value = [
                 ...messages.value,
                 data,
@@ -62,7 +62,7 @@ export function socketListener() {
         outGoingCall.value = false;
         userStream.value = null;
         myStream.value = null;
-        
+
         window.location.reload();
     });
 
@@ -125,7 +125,7 @@ export async function call(isVideoCallPram) {
 
             if (isVideoCallPram) {
                 await apiService.sendMessage(userId, 'videoCall', 'videoCall');
-            }else{
+            } else {
                 await apiService.sendMessage(userId, 'voiceCall', 'voiceCall');
             }
 
@@ -134,13 +134,13 @@ export async function call(isVideoCallPram) {
         }
     } catch (err) {
         toast.error('Something went wrong, please try again',
-        {
-          style: {
-            borderRadius: '10px',
-            background: '#333',
-            color: '#fff',
-          },
-        }
-      );
+            {
+                style: {
+                    borderRadius: '10px',
+                    background: '#333',
+                    color: '#fff',
+                },
+            }
+        );
     }
 }

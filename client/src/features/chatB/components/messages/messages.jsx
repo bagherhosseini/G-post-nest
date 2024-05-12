@@ -18,7 +18,7 @@ export default function Messages() {
                 {messages.value.map((msg, index) => (
                     <div className='messageInfo' key={index}>
                         {
-                            msg.type === 'voiceCall' || msg.type === 'videoCall' ?( 
+                            msg.type === 'voiceCall' || msg.type === 'videoCall' ? (
                                 <span className='callText'>
                                     {msg.type === 'voiceCall' ? <IoIosCall /> : <FaVideo />}
                                     {msg.senderId === userId.value ? (
@@ -26,9 +26,9 @@ export default function Messages() {
                                     ) : (
                                         <span>You called {friendName.value} at {msg.date}</span>
                                     )}
-                                    
+
                                 </span>
-                            ):(
+                            ) : (
                                 <>
                                     {msg.name ? (<ProfilePic username={msg.name} />) : (<ProfilePic username={myName.value} />)}
                                     <div className='NameMsg'>
@@ -45,7 +45,6 @@ export default function Messages() {
                                     </div>
                                 </>
                             )
-
                         }
                     </div>
                 ))}

@@ -91,7 +91,7 @@ export const apiService = {
         });
       return response;
     } catch (error) {
-      if(error.response.status === 401) {
+      if (error.response.status === 401) {
         redirectToLogin();
       }
       throw error;
@@ -103,7 +103,7 @@ export const apiService = {
       const response = await axiosClient.get('/user/myInfo');
       return response;
     } catch (error) {
-      if(error.response.status === 401) {
+      if (error.response.status === 401) {
         redirectToLogin();
       }
       throw error;
@@ -115,7 +115,7 @@ export const apiService = {
       const response = await axiosClient.post('/user/userInfo', { id });
       return response;
     } catch (error) {
-      if(error.response.status === 401) {
+      if (error.response.status === 401) {
         redirectToLogin();
       }
       throw error;
@@ -127,7 +127,7 @@ export const apiService = {
       const response = await axiosClient.post('/chat/messages', { friendId });
       return response;
     } catch (error) {
-      if(error.response.status === 401) {
+      if (error.response.status === 401) {
         redirectToLogin();
       }
       throw error;
@@ -139,7 +139,7 @@ export const apiService = {
       const response = await axiosClient.post('/chat/file', data);
       return response;
     } catch (error) {
-      if(error.response.status === 401) {
+      if (error.response.status === 401) {
         redirectToLogin();
       }
       throw error;
@@ -151,7 +151,7 @@ export const apiService = {
       const response = await axiosClient.post('/chat/message', { receiverId, messageText, messageType });
       return response;
     } catch (error) {
-      if(error.response.status === 401) {
+      if (error.response.status === 401) {
         redirectToLogin();
       }
       throw error;
@@ -163,7 +163,7 @@ export const apiService = {
       const response = await axiosClient.post('/chat/token', { userId });
       return response;
     } catch (error) {
-      if(error.response.status === 401) {
+      if (error.response.status === 401) {
         redirectToLogin();
       }
       throw error;
@@ -175,7 +175,7 @@ export const apiService = {
       const response = await axiosClient.post('/friends/add', { friendUserName });
       return response;
     } catch (error) {
-      if(error.response.status === 401) {
+      if (error.response.status === 401) {
         redirectToLogin();
       }
       throw error;
@@ -187,7 +187,7 @@ export const apiService = {
       const response = await axiosClient.delete('/friends/remove', { data: { id: friendId } });
       return response;
     } catch (error) {
-      if(error.response.status === 401) {
+      if (error.response.status === 401) {
         redirectToLogin();
       }
       throw error;
@@ -199,7 +199,7 @@ export const apiService = {
       const response = await axiosClient.get('/friends/requests');
       return response;
     } catch (error) {
-      if(error.response.status === 401) {
+      if (error.response.status === 401) {
         redirectToLogin();
       }
       throw error;
@@ -211,7 +211,7 @@ export const apiService = {
       const response = await axiosClient.patch('/friends/accept', { reqId });
       return response;
     } catch (error) {
-      if(error.response.status === 401) {
+      if (error.response.status === 401) {
         redirectToLogin();
       }
       throw error;

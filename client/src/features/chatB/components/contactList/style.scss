@@ -1,4 +1,4 @@
-.contactsContainer{
+.contactsContainer {
     width: 300px;
     height: 100%;
     display: flex;
@@ -7,7 +7,7 @@
     margin-right: 10px;
     background-color: #242836;
 
-    .contactsHeader{
+    .contactsHeader {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -19,21 +19,21 @@
         border-top-right-radius: 8px;
         padding: 0 20px;
         min-height: 60px;
-    
-        & .contactsHeaderCon{
+
+        & .contactsHeaderCon {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-    
-        & h1{
+
+        & h1 {
             padding: 0 !important;
             margin: 0;
             font-size: 0.8em;
             font-weight: 100;
         }
-    
-        & .link{
+
+        & .link {
             color: white;
             text-decoration: none;
             border: 1px solid rgba(0, 0, 0, 0.445);
@@ -41,19 +41,19 @@
             display: flex;
             align-items: center;
             padding: 5px 5px;
-            
-            & svg{
+
+            & svg {
                 height: 15px;
                 width: 15px;
             }
         }
     }
 
-    .sideMenuLink{
+    .sideMenuLink {
         // padding: 0 15px;
         margin-bottom: 20px;
 
-        & .link{
+        & .link {
             color: white;
             text-decoration: none;
             display: flex;
@@ -62,34 +62,35 @@
             font-size: 0.9em;
             display: flex;
             gap: 10px;
-            
-            & svg{
+
+            & svg {
                 height: 20px;
                 width: 20px;
             }
         }
-        & .link.active{
+
+        & .link.active {
             background: hsla(249, 17%, 8%, 0.50);
             color: white;
         }
     }
 
-    & .contacts{
+    & .contacts {
         display: flex;
         flex-direction: column;
         overflow: auto;
         flex-grow: 1;
-        
+
         &::-webkit-scrollbar {
             width: 10px;
         }
-        
+
         &::-webkit-scrollbar-thumb {
             background: white;
             border-radius: 3px;
         }
-        
-        & .contact{
+
+        & .contact {
             width: 100%;
             display: flex;
             flex-direction: row;
@@ -99,25 +100,25 @@
             text-decoration: none;
             color: hsla(0, 0%, 100%, 0.50);
 
-            &:hover{
+            &:hover {
                 color: white;
                 background: hsla(249, 17%, 8%, 0.30);
             }
 
-            & img{
+            & img {
                 width: 30px;
                 height: 30px;
                 border-radius: 50%;
             }
         }
 
-        & .contact.active{
+        & .contact.active {
             background: hsla(249, 17%, 8%, 0.50);
             color: white;
         }
     }
 
-    & .profile{
+    & .profile {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -126,13 +127,13 @@
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
 
-        & .myInfo{
+        & .myInfo {
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        & button{
+        & button {
             font-size: 20px;
             color: red;
         }

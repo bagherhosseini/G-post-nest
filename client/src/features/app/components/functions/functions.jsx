@@ -3,7 +3,6 @@ import { useSignalEffect } from '@preact/signals-react';
 import Cookies from "js-cookie";
 
 import { apiService } from '../../../../services';
-import { faL } from '@fortawesome/free-solid-svg-icons';
 
 export default function CheckAuth() {
   const navigate = useNavigate();
@@ -13,30 +12,30 @@ export default function CheckAuth() {
     async function getMyInfo(doNavigate = false) {
       const myInfo = await apiService.getMyInfo();
 
-      if(myInfo.data){
+      if (myInfo.data) {
         localStorage.setItem("id", myInfo.data.user.id);
 
-        if(doNavigate){
+        if (doNavigate) {
           navigate("/chat/friends");
         }
-      }else{
+      } else {
         Cookies.remove('authToken');
         localStorage.removeItem("id");
         navigate("/");
       }
     }
 
-    if(authToken === "undefined" || authToken === undefined || authToken === null || authToken === ""){
+    if (authToken === "undefined" || authToken === undefined || authToken === null || authToken === "") {
       navigate("/");
       localStorage.removeItem("id");
-    }else if(authToken && window.location.pathname === "/"){
-      if(id === "undefined" || id === undefined || id === null || id === "" || id === '' || id === "null"){
+    } else if (authToken && window.location.pathname === "/") {
+      if (id === "undefined" || id === undefined || id === null || id === "" || id === '' || id === "null") {
         getMyInfo(true);
-      }else{
+      } else {
         navigate("/chat/friends");
       }
-    }else if(authToken){
-      if(id === "undefined" || id === undefined || id === null || id === "" || id === '' || id === "null"){
+    } else if (authToken) {
+      if (id === "undefined" || id === undefined || id === null || id === "" || id === '' || id === "null") {
         getMyInfo(false);
       }
     }

@@ -5,10 +5,9 @@ import { faPhoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { stopCam } from '../stopCam/stopCam';
 import { socket } from '../../../../../services/lib/stocket';
 
-import {  
-  userId, 
+import {
+  userId,
   outGoingCall,
-  userStream,
   myStream,
   myId,
   isVideoCall,
