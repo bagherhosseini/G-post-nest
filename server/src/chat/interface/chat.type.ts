@@ -16,6 +16,10 @@ export class messageDto {
   @IsNotEmpty()
   messageText: string;
 
+  @IsString()
+  @IsNotEmpty()
+  date: string;
+
   @IsEnum(Type)
   @IsNotEmpty()
   messageType: Type;

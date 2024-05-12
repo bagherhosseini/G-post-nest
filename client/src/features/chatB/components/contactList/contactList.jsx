@@ -4,6 +4,7 @@ import { useSignalEffect } from '@preact/signals-react';
 import { FaUserFriends } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 import { socket } from '../../../../services/lib/stocket.js';
@@ -49,12 +50,15 @@ function GetFriendsWithStatus() {
 }
 
 export default function ContactList() {
+  const navigate = useNavigate();
   GetFriendsWithStatus();
 
   const Logout = async () => {
     try {
-      Cookies.remove('authToken');
-      authApiService.signOut();
+      const res = await authApiService.signOut();
+      if(res.status === 200) {
+        navigate("/");
+      }
     } catch (error) {
       toast.error('Something went wrong, please try again',
         {

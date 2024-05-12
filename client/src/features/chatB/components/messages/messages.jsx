@@ -38,7 +38,7 @@ export default function Messages() {
                                             ) : (
                                                 <p className='name'>{myName.value}</p>
                                             )}
-                                            <p className='time'>Today at 22:02</p>
+                                            <p className='time'>{msg.date}</p>
                                         </div>
                                         {msg.type === 'text' && <span className='message'>{msg.message}</span>}
                                         {msg.type === 'file' && <img className='fileImg' src={`${process.env.REACT_APP_API_URL}/${msg.message}`} alt='file' />}

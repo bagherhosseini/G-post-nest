@@ -7,6 +7,7 @@ import { HiPlusCircle } from "react-icons/hi";
 import Picker from '@emoji-mart/react';
 import data from '@emoji-mart/data';
 import { toast } from 'react-toastify';
+import { format } from 'date-fns';
 
 import { myId, userId, messages, filePreviewURL, myName } from '../../signals/signals'
 
@@ -93,12 +94,13 @@ export default function SendMessage() {
                 });
 
                 // Show the sent message in the chat window
+                const date = new Date();
                 messages.value = [
                     ...messages.value,
-                    { from: myName, message: messageInput.value, type: 'text' },
+                    { from: myName, date: format(date, 'yyyy-MM-dd HH:mm'), message: messageInput.value, type: 'text' },
                 ];
 
-                await apiService.sendMessage(userId, messageInput.value, 'text');
+                await apiService.sendMessage(userId, messageInput.value, format(date, 'yyyy-MM-dd HH:mm'), 'text');
 
                 messageInput.value = '';
                 showEmojiPicker.value = false;

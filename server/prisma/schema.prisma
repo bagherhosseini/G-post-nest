@@ -45,7 +45,7 @@ model Messages {
   receiverId String
   message    String
   type       String
-  date       DateTime @default(now())
+  date       String 
 
   sender   User @relation("MessageSender", fields: [senderId], references: [id])
   receiver User @relation("MessageReceiver", fields: [receiverId], references: [id])

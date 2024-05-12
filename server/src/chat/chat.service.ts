@@ -122,6 +122,7 @@ export class ChatService {
           senderId: userId,
           receiverId: body.receiverId,
           message: body.messageText,
+          date: body.date,
           type: body.messageType,
         },
       });

@@ -64,11 +64,17 @@ export const authApiService = {
     return response;
   },
 
-  signOut: () => {
-    redirectToLogin();
+  signOut: async () => {
     axiosClient.defaults.headers = {
       Authorization: undefined,
     };
+
+    try {
+      const response = await axiosClient.get('/auth/removeCookie');
+      return response;
+    } catch (error) {
+      throw error;
+    }
   },
 
   verifyEmail: async (linkToken) => {
@@ -146,14 +152,15 @@ export const apiService = {
     }
   },
 
-  sendMessage: async (receiverId, messageText, messageType) => {
+  sendMessage: async (receiverId, messageText, date, messageType) => {
     try {
-      const response = await axiosClient.post('/chat/message', { receiverId, messageText, messageType });
+      const response = await axiosClient.post('/chat/message', { receiverId, messageText, date, messageType });
       return response;
     } catch (error) {
       if (error.response.status === 401) {
         redirectToLogin();
       }
+      console.log(error);
       throw error;
     }
   },

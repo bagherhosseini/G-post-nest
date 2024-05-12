@@ -8,6 +8,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { SocketDto } from './stocket.dto';
+import { format } from 'date-fns';
 
 @WebSocketGateway({
   cors: {
@@ -68,6 +69,7 @@ export class SocketGateway
         from: data.from,
         name: data.name,
         message: data.message,
+        date: format(new Date(), 'yyyy-MM-dd HH:mm'),
         type: data.type,
       });
     } else {
