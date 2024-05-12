@@ -58,6 +58,7 @@ export const authApiService = {
       .then((response) => {
         return response;
       });
+      console.log(response)
     axiosClient.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${response.data.access_token}`;
