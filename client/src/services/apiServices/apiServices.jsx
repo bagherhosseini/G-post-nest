@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useNavigate } from "react-router-dom";
 
 export const API_URL = process.env.REACT_APP_API_URL;
 

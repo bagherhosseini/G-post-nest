@@ -10,6 +10,11 @@ export default function Messages() {
     return (
         <>
             <div className='messages'>
+                {messages.value && !messages.value.length && (
+                    <div className='noMessages'>
+                        <p>No messages yet</p>
+                    </div>
+                )}
                 {messages.value.map((msg, index) => (
                     <div className='messageInfo' key={index}>
                         {

@@ -4,6 +4,7 @@ import { useSignalEffect } from '@preact/signals-react';
 import { FaUserFriends } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 
 import { socket } from '../../../../services/lib/stocket.js';
 import { authApiService, apiService } from '../../../../services';
@@ -52,6 +53,7 @@ export default function ContactList() {
 
   const Logout = async () => {
     try {
+      Cookies.remove('authToken');
       authApiService.signOut();
     } catch (error) {
       toast.error('Something went wrong, please try again',
