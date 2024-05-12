@@ -20,13 +20,18 @@ import {
   inCommingCall,
   callAccepted,
   myName,
+  messages,
 } from './features/chatB/signals/signals';
 import { apiService } from './services';
+import { useSignalEffect } from '@preact/signals-react';
 
 function App() {
   const authToken = Cookies.get('authToken');
   CheckAuth();
-  socketListener();
+  
+  useSignalEffect(() => {
+    socketListener();
+  });
 
   useEffect(() => {
     async function getMyInfo() {

@@ -95,7 +95,7 @@ export default function SendMessage() {
                 // Show the sent message in the chat window
                 messages.value = [
                     ...messages.value,
-                    { from: 'You', message: messageInput.value, type: 'text' },
+                    { from: myName, message: messageInput.value, type: 'text' },
                 ];
 
                 await apiService.sendMessage(userId, messageInput.value, 'text');

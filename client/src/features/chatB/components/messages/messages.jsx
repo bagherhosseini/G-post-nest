@@ -3,7 +3,7 @@ import { FaVideo } from "react-icons/fa";
 import { IoIosCall } from "react-icons/io";
 
 import SendMessage from './sendMessage';
-import { myId, messages, filePreviewURL, myName, friendName, userId } from '../../signals/signals';
+import { messages, filePreviewURL, myName, friendName, userId } from '../../signals/signals';
 import ProfilePic from '../profilePic/profilePic';
 
 export default function Messages() {

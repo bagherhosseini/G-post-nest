@@ -5,7 +5,6 @@ import './style.scss';
 
 import {
     PageContent,
-    socketListener,
     call
 } from '../../features/chatB/index.jsx'
 import { socket } from '../../services/lib/stocket.js';
@@ -18,10 +17,6 @@ const ChatB = () => {
         userId.value = friendId;
         socket.emit('userStatus', { userId: friendId });
     }
-
-    useSignalEffect(() => {
-        socketListener();
-    });
 
     const handleCall = async (isVideoCallPram) => {
         call(isVideoCallPram);
