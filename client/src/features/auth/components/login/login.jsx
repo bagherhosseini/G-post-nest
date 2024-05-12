@@ -44,8 +44,7 @@ export default function Login() {
             }
             return;
         } catch (error) {
-            console.log(error)
-            toast.error(error.response.data.message,
+            toast.error("Something went wrong, please try again",
                 {
                     style: {
                         borderRadius: '10px',
