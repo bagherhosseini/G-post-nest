@@ -56,8 +56,9 @@ export default function ContactList() {
   const Logout = async () => {
     try {
       const res = await authApiService.signOut();
+      console.log(res)
       if(res.status === 200) {
-        navigate("/");
+        // navigate("/");
       }
     } catch (error) {
       toast.error('Something went wrong, please try again',
