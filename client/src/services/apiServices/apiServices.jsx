@@ -58,7 +58,7 @@ export const authApiService = {
       .then((response) => {
         return response;
       });
-      console.log(response)
+      console.log(response.data)
     axiosClient.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${response.data.access_token}`;
@@ -66,9 +66,9 @@ export const authApiService = {
   },
 
   signOut: async () => {
-    axiosClient.defaults.headers = {
-      Authorization: undefined,
-    };
+    axiosClient.defaults.headers.common[
+      "Authorization"
+    ] = undefined;
 
     try {
       const response = await axiosClient.get('/auth/removeCookie');
