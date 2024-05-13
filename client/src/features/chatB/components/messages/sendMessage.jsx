@@ -77,8 +77,8 @@ export default function SendMessage() {
                     ...messages.value,
                     { from: myName.value, message: resData.file, type: 'file' },
                 ];
-
-                await apiService.sendMessage(userId, resData.file, 'file');
+                const date = new Date();
+                await apiService.sendMessage(userId, resData.file, format(date, 'yyyy-MM-dd HH:mm'), 'file');
 
                 messageInput.value = '';
                 showEmojiPicker.value = false;

@@ -1,5 +1,6 @@
 import Peer from 'simple-peer';
 import { toast } from 'react-toastify';
+import { format } from 'date-fns';
 
 import { stopCam } from '../call/stopCam/stopCam.js';
 
@@ -123,10 +124,12 @@ export async function call(isVideoCallPram) {
                 peer.signal(data.signal);
             });
 
+            const date = new Date();
+
             if (isVideoCallPram) {
-                await apiService.sendMessage(userId, 'videoCall', 'videoCall');
+                await apiService.sendMessage(userId, 'videoCall', format(date, 'yyyy-MM-dd HH:mm'), 'videoCall');
             } else {
-                await apiService.sendMessage(userId, 'voiceCall', 'voiceCall');
+                await apiService.sendMessage(userId, 'voiceCall', format(date, 'yyyy-MM-dd HH:mm'), 'voiceCall');
             }
 
         } else {
